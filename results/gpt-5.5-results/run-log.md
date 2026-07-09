@@ -1,0 +1,19 @@
+| task_id | timestamp | model | temp | effort | tokens | anomaly |
+|---|---|---|---|---|---|---|
+| 1.1 | 2026-07-09T16:12:04+01:00 | gpt-5.5 | default† | xhigh | n/a | none |
+| 1.2 | 2026-07-09T16:17:03+01:00 | gpt-5.5 | default† | xhigh | n/a | none |
+| 1.3 | 2026-07-09T16:19:42+01:00 | gpt-5.5 | default† | xhigh | n/a | none |
+| 2.1 | 2026-07-09T16:21:35+01:00 | gpt-5.5 | default† | xhigh | n/a | none |
+| 2.2 | 2026-07-09T16:22:53+01:00 | gpt-5.5 | default† | xhigh | n/a | none |
+| 2.3 | 2026-07-09T16:23:55+01:00 | gpt-5.5 | default† | xhigh | n/a | none |
+| 3.1 | 2026-07-09T16:27:20+01:00 | gpt-5.5 | default† | xhigh | n/a | none |
+| 3.2 | 2026-07-09T16:29:31+01:00 | gpt-5.5 | default† | xhigh | n/a | none |
+| 3.3 | 2026-07-09T16:33:08+01:00 | gpt-5.5 | default† | xhigh | n/a | none |
+| 4.1 | 2026-07-09T16:39:04+01:00 | gpt-5.5 | default† | xhigh | n/a | none |
+| 4.2 | 2026-07-09T16:41:38+01:00 | gpt-5.5 | default† | xhigh | n/a | none |
+| 4.3 | 2026-07-09T16:47:23+01:00 | gpt-5.5 | default† | xhigh | n/a | none |
+| 5.1 | 2026-07-09T16:54:41+01:00 | gpt-5.5 | default† | xhigh | n/a | none |
+| 5.2 | 2026-07-09T16:57:57+01:00 | gpt-5.5 | default† | xhigh | n/a | none |
+| 5.3 | 2026-07-09T16:59:35+01:00 | gpt-5.5 | default† | xhigh | n/a | none |
+| 6.1 | 2026-07-09T17:06:32+01:00 | gpt-5.5 | default† | xhigh | n/a | none |
+| 6.2 | 2026-07-09T17:10:47+01:00 | gpt-5.5 | default† | xhigh | n/a | none |

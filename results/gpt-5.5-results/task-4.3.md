@@ -1,0 +1,634 @@
+# SIRAJ Visual Identity System
+
+## 1. CONCEPT
+SIRAJ is a desk lamp over a manuscript: intelligence is local illumination, never a speaking character. The product behaves like a precise instrument at the edge of the page: it reveals grain, عروض, references, and revisions without stealing authorship or turning writing into chat. Every visual decision follows this: the page is sovereign; assistance lives in the margin; light is narrow, directional, and useful; motion is the movement of a lamp shutter or fresh ink settling, not entertainment. Color comes from paper, soot ink, brass, oxidized metal, and one editorial blue. The interface earns trust by staying quiet until summoned.
+
+## 2. TYPOGRAPHY
+Arabic is the metric authority. Latin is treated as inserted notation, never as the default rhythm.
+
+**Display Arabic**: `Aref Ruqaa`, falling back to `Noto Naskh Arabic`, then serif. Use only for the wordmark, section titles, and manuscript labels. It should feel written, not decorative; never use it for paragraphs or dense UI.
+
+**Text Arabic**: `Noto Naskh Arabic`, falling back to `Amiri`, then `Times New Roman`, then serif. This is the writing surface voice: long line, high counters, generous descenders. Minimum prose size is 18px with 1.85 line-height.
+
+**UI Arabic**: `IBM Plex Sans Arabic`, falling back to `Noto Sans Arabic`, then system sans. Used for command names, metadata, buttons, labels, and file/navigation surfaces.
+
+**Latin inside Arabic**: use `IBM Plex Sans` or system sans, set at 0.92em inside Arabic prose and 0.95em inside UI. Wrap Latin runs in `bdi dir="ltr"`; isolate technical terms with bidi isolation rather than forcing an LTR paragraph. Do not all-cap embedded Latin. Use Arabic punctuation when the sentence is Arabic. Numerals in tables and metadata use tabular figures; prose numerals follow the writer's document setting.
+
+**Scale**:
+
+| Token | px | Use |
+|---|---:|---|
+| xs | 12 | folios, shortcuts, small metadata |
+| sm | 14 | palette labels, quiet system state |
+| md | 16 | default UI text |
+| lg | 18 | compact prose, command rows |
+| xl | 20 | primary Arabic drafting text minimum |
+| 2xl | 24 | panel headings, manuscript subtitles |
+| 3xl | 32 | canvas title |
+| 4xl | 44 | wordmark and major display |
+| 5xl | 56 | rare cover/title use only |
+
+Rules: Arabic paragraphs use 58-68 Arabic characters per line, line-height 1.75-1.95, no negative tracking, no justified text unless the user explicitly turns on manuscript justification. UI labels may be semibold; body prose should not exceed regular weight except for author-applied emphasis.
+
+## 3. COLOR
+The palette is derived from the desk-lamp manuscript model: paper, soot ink, brass light, oxidized metal, editorial blue, and sealing-wax correction. Brass is illumination, not decoration. Blue is intervention. Verdigris is local state and trust. Wax is destructive or irreversible action.
+
+### Core Palette
+
+| Semantic token | Light | Dark | Intent |
+|---|---:|---:|---|
+| `bg` | `#F1E7D6` | `#0E1110` | surrounding desk field |
+| `canvas` | `#FFF8EA` | `#202018` | sovereign writing page |
+| `surface` | `#F7EFDF` | `#171A17` | tool surfaces and rails |
+| `surfaceRaised` | `#FCF5E8` | `#24251D` | open palette and active shelves |
+| `text` | `#15130F` | `#EFE6D2` | soot ink / warm paper text |
+| `textMuted` | `#5F584D` | `#B9AD95` | secondary reading text |
+| `textFaint` | `#8A7D6B` | `#817968` | folios and nonessential marks |
+| `border` | `#D8C9B2` | `#36382E` | paper edge and quiet dividers |
+| `borderStrong` | `#9A876C` | `#6D644F` | active instrument boundary |
+| `line` | `#E9DCC6` | `#2B2B23` | manuscript ruling and grain |
+| `lamp` | `#C9972F` | `#D8A64B` | brass rail, open state, attention |
+| `lampText` | `#7B5716` | `#F3D992` | readable brass-associated text |
+| `lampSoft` | `#F2C76B` | `#6E5524` | lamp glow and non-text fill |
+| `editor` | `#25577F` | `#83A9C9` | editorial marks, selected command |
+| `verdigris` | `#2F6F62` | `#72AA9D` | local-first, saved, verified |
+| `wax` | `#8B2635` | `#D07A84` | delete, overwrite, reject |
+| `selection` | `#E5D4B6` | `#463C28` | selected text and fresh ink wash |
+
+Contrast intent: prose text on canvas targets at least 12:1 in both modes. Muted metadata targets at least 4.5:1. `lamp` and `lampSoft` are not used as small text on light surfaces; use `lampText` when brass must carry words. `editor`, `verdigris`, and `wax` must never be the only signal for meaning; pair them with shape, label, or position. Borders may sit below text contrast because they are structural, not informational.
+
+## 4. MOTION
+Motion is instrument behavior: precise, reversible, and subordinate to reading.
+
+**Durations**: micro response 90ms; command row focus 160ms; command palette open/close 180ms; ink-settle confirmation 420ms. Anything longer than 420ms is treated as ceremonial and is not part of the product UI.
+
+**Easings**:
+
+| Token | cubic-bezier | Use |
+|---|---|---|
+| `shutter` | `cubic-bezier(.20, 0, .12, 1)` | lamp aperture, palette reveal |
+| `ink` | `cubic-bezier(.16, 1, .30, 1)` | generated text wash, annotation settle |
+| `measured` | `cubic-bezier(.40, 0, .20, 1)` | hover, focus, ordinary transitions |
+| `return` | `cubic-bezier(.30, 0, .70, 1)` | dismiss, cancel, undo |
+
+**Never animates**: glyph shapes, text baseline, paragraph measure, caret position, selection range, document scroll, line numbers, typed characters, spelling marks, or the user's draft moving out from under them.
+
+**Signature moves**:
+
+1. **Lamp Aperture**: the command palette opens from the page margin as a narrow brass slit widening into a surface. It translates only along the margin axis; no bounce, no scale theatrics.
+2. **Margin Slip**: suggestions and citations enter from the margin by 12px, then stop flush with the page edge. Assistance arrives as annotation, not conversation.
+3. **Ink Settle**: an accepted phrase receives a warm selection wash that drains into normal ink over 420ms. The text does not morph; authorship remains stable.
+
+## 5. TOKENS
+```json
+{
+  "siraj": {
+    "color": {
+      "light": {
+        "bg": "#F1E7D6",
+        "canvas": "#FFF8EA",
+        "surface": "#F7EFDF",
+        "surfaceRaised": "#FCF5E8",
+        "text": "#15130F",
+        "textMuted": "#5F584D",
+        "textFaint": "#8A7D6B",
+        "border": "#D8C9B2",
+        "borderStrong": "#9A876C",
+        "line": "#E9DCC6",
+        "lamp": "#C9972F",
+        "lampText": "#7B5716",
+        "lampSoft": "#F2C76B",
+        "editor": "#25577F",
+        "verdigris": "#2F6F62",
+        "wax": "#8B2635",
+        "selection": "#E5D4B6"
+      },
+      "dark": {
+        "bg": "#0E1110",
+        "canvas": "#202018",
+        "surface": "#171A17",
+        "surfaceRaised": "#24251D",
+        "text": "#EFE6D2",
+        "textMuted": "#B9AD95",
+        "textFaint": "#817968",
+        "border": "#36382E",
+        "borderStrong": "#6D644F",
+        "line": "#2B2B23",
+        "lamp": "#D8A64B",
+        "lampText": "#F3D992",
+        "lampSoft": "#6E5524",
+        "editor": "#83A9C9",
+        "verdigris": "#72AA9D",
+        "wax": "#D07A84",
+        "selection": "#463C28"
+      }
+    },
+    "type": {
+      "family": {
+        "display": "Aref Ruqaa, Noto Naskh Arabic, serif",
+        "text": "Noto Naskh Arabic, Amiri, Times New Roman, serif",
+        "ui": "IBM Plex Sans Arabic, Noto Sans Arabic, system-ui, sans-serif",
+        "latin": "IBM Plex Sans, Segoe UI, system-ui, sans-serif"
+      },
+      "size": {
+        "xs": "12px",
+        "sm": "14px",
+        "md": "16px",
+        "lg": "18px",
+        "xl": "20px",
+        "2xl": "24px",
+        "3xl": "32px",
+        "4xl": "44px",
+        "5xl": "56px"
+      },
+      "lineHeight": {
+        "solid": "1",
+        "tight": "1.18",
+        "ui": "1.35",
+        "prose": "1.88"
+      },
+      "weight": {
+        "regular": "400",
+        "medium": "500",
+        "semibold": "600",
+        "bold": "700"
+      },
+      "tracking": {
+        "arabic": "0",
+        "latin": "0"
+      },
+      "latinInlineScale": {
+        "prose": "0.92em",
+        "ui": "0.95em"
+      }
+    },
+    "space": {
+      "0": "0",
+      "1": "4px",
+      "2": "8px",
+      "3": "12px",
+      "4": "16px",
+      "5": "24px",
+      "6": "32px",
+      "7": "48px",
+      "8": "64px",
+      "9": "96px",
+      "hairline": "1px",
+      "focus": "2px",
+      "rail": "8px",
+      "measure": "62ch",
+      "shell": "1180px",
+      "canvas": "720px",
+      "palette": "356px",
+      "screen": "100vh",
+      "full": "100%",
+      "lineStep": "32px"
+    },
+    "radius": {
+      "none": "0",
+      "small": "3px",
+      "medium": "6px",
+      "large": "8px",
+      "pill": "999px"
+    },
+    "motion": {
+      "duration": {
+        "micro": "90ms",
+        "short": "160ms",
+        "command": "180ms",
+        "settle": "420ms"
+      },
+      "easing": {
+        "shutter": "cubic-bezier(.20, 0, .12, 1)",
+        "ink": "cubic-bezier(.16, 1, .30, 1)",
+        "measured": "cubic-bezier(.40, 0, .20, 1)",
+        "return": "cubic-bezier(.30, 0, .70, 1)"
+      },
+      "distance": {
+        "marginSlip": "12px",
+        "aperture": "8px"
+      },
+      "scale": {
+        "apertureStart": "0.96"
+      },
+      "opacity": {
+        "hidden": "0",
+        "shown": "1"
+      }
+    }
+  }
+}
+```
+
+## 6. DEMO
+```html
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIRAJ Writing Canvas</title>
+<style>
+:root {
+  --color-bg: #F1E7D6;
+  --color-canvas: #FFF8EA;
+  --color-surface: #F7EFDF;
+  --color-surface-raised: #FCF5E8;
+  --color-text: #15130F;
+  --color-text-muted: #5F584D;
+  --color-text-faint: #8A7D6B;
+  --color-border: #D8C9B2;
+  --color-border-strong: #9A876C;
+  --color-line: #E9DCC6;
+  --color-lamp: #C9972F;
+  --color-lamp-text: #7B5716;
+  --color-lamp-soft: #F2C76B;
+  --color-editor: #25577F;
+  --color-verdigris: #2F6F62;
+  --color-wax: #8B2635;
+  --color-selection: #E5D4B6;
+  --font-display: Aref Ruqaa, Noto Naskh Arabic, serif;
+  --font-text: Noto Naskh Arabic, Amiri, Times New Roman, serif;
+  --font-ui: IBM Plex Sans Arabic, Noto Sans Arabic, system-ui, sans-serif;
+  --font-latin: IBM Plex Sans, Segoe UI, system-ui, sans-serif;
+  --type-xs: 12px;
+  --type-sm: 14px;
+  --type-md: 16px;
+  --type-lg: 18px;
+  --type-xl: 20px;
+  --type-2xl: 24px;
+  --type-3xl: 32px;
+  --type-4xl: 44px;
+  --line-solid: 1;
+  --line-tight: 1.18;
+  --line-ui: 1.35;
+  --line-prose: 1.88;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --tracking-arabic: 0;
+  --latin-ui: 0.95em;
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-hairline: 1px;
+  --space-focus: 2px;
+  --space-rail: 8px;
+  --space-measure: 62ch;
+  --space-shell: 1180px;
+  --space-canvas: 720px;
+  --space-palette: 356px;
+  --space-screen: 100vh;
+  --space-full: 100%;
+  --space-line-step: 32px;
+  --radius-none: 0;
+  --radius-small: 3px;
+  --radius-medium: 6px;
+  --radius-large: 8px;
+  --radius-pill: 999px;
+  --duration-micro: 90ms;
+  --duration-short: 160ms;
+  --duration-command: 180ms;
+  --duration-settle: 420ms;
+  --ease-shutter: cubic-bezier(.20, 0, .12, 1);
+  --ease-ink: cubic-bezier(.16, 1, .30, 1);
+  --ease-measured: cubic-bezier(.40, 0, .20, 1);
+  --ease-return: cubic-bezier(.30, 0, .70, 1);
+  --motion-margin-slip: 12px;
+  --motion-aperture: 8px;
+  --motion-aperture-scale: 0.96;
+  --opacity-hidden: 0;
+  --opacity-shown: 1;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0E1110;
+    --color-canvas: #202018;
+    --color-surface: #171A17;
+    --color-surface-raised: #24251D;
+    --color-text: #EFE6D2;
+    --color-text-muted: #B9AD95;
+    --color-text-faint: #817968;
+    --color-border: #36382E;
+    --color-border-strong: #6D644F;
+    --color-line: #2B2B23;
+    --color-lamp: #D8A64B;
+    --color-lamp-text: #F3D992;
+    --color-lamp-soft: #6E5524;
+    --color-editor: #83A9C9;
+    --color-verdigris: #72AA9D;
+    --color-wax: #D07A84;
+    --color-selection: #463C28;
+  }
+}
+* { box-sizing: border-box; }
+html { min-block-size: var(--space-screen); }
+body {
+  margin: var(--space-0);
+  min-block-size: var(--space-screen);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  letter-spacing: var(--tracking-arabic);
+}
+.viewport {
+  min-block-size: var(--space-screen);
+  display: grid;
+  place-items: center;
+  padding: var(--space-6);
+}
+.instrument {
+  inline-size: min(var(--space-full), var(--space-shell));
+  display: grid;
+  grid-template-columns: minmax(var(--space-measure), var(--space-canvas)) var(--space-rail) var(--space-palette);
+  gap: var(--space-4);
+  align-items: stretch;
+}
+.canvas {
+  display: grid;
+  gap: var(--space-4);
+}
+.canvas-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  color: var(--color-text-muted);
+  font-size: var(--type-sm);
+  line-height: var(--line-ui);
+}
+.brand {
+  font-family: var(--font-display);
+  font-size: var(--type-4xl);
+  line-height: var(--line-tight);
+  color: var(--color-text);
+}
+.brand span {
+  direction: ltr;
+  font-family: var(--font-latin);
+  font-size: var(--latin-ui);
+  color: var(--color-lamp-text);
+}
+.status {
+  color: var(--color-verdigris);
+  font-weight: var(--weight-medium);
+}
+.sheet {
+  position: relative;
+  min-block-size: calc(var(--space-screen) - var(--space-8));
+  padding: var(--space-7) var(--space-8) var(--space-7) var(--space-7);
+  border: var(--space-hairline) solid var(--color-border);
+  border-radius: var(--radius-large);
+  background-color: var(--color-canvas);
+  background-image:
+    linear-gradient(to bottom, transparent calc(var(--space-full) - var(--space-hairline)), var(--color-line) calc(var(--space-full) - var(--space-hairline))),
+    linear-gradient(to left, var(--color-surface), var(--color-canvas), var(--color-canvas));
+  background-size: var(--space-full) var(--space-line-step), var(--space-full) var(--space-full);
+}
+.folio {
+  color: var(--color-text-faint);
+  font-size: var(--type-xs);
+  line-height: var(--line-ui);
+  margin-block-end: var(--space-6);
+}
+h1 {
+  margin: var(--space-0) var(--space-0) var(--space-5);
+  font-family: var(--font-display);
+  font-size: var(--type-3xl);
+  line-height: var(--line-tight);
+  font-weight: var(--weight-regular);
+}
+p, blockquote {
+  max-inline-size: var(--space-measure);
+  margin: var(--space-0) var(--space-0) var(--space-5);
+  font-family: var(--font-text);
+  font-size: var(--type-xl);
+  line-height: var(--line-prose);
+  font-weight: var(--weight-regular);
+}
+blockquote {
+  padding-inline-start: var(--space-5);
+  border-inline-start: var(--space-focus) solid var(--color-lamp);
+  color: var(--color-text);
+}
+.ink-wash {
+  background: var(--color-selection);
+  color: var(--color-text);
+  border-radius: var(--radius-small);
+  animation: inkSettle var(--duration-settle) var(--ease-ink);
+}
+.margin-note {
+  position: absolute;
+  inset-block-start: var(--space-7);
+  inset-inline-end: var(--space-5);
+  inline-size: var(--space-palette);
+  max-inline-size: calc(var(--space-palette) - var(--space-8));
+  padding: var(--space-3) var(--space-4);
+  border-inline-start: var(--space-focus) solid var(--color-editor);
+  color: var(--color-editor);
+  background: var(--color-surface);
+  border-radius: var(--radius-medium);
+  font-size: var(--type-sm);
+  line-height: var(--line-ui);
+  animation: marginSlip var(--duration-short) var(--ease-measured);
+}
+.rail {
+  border-radius: var(--radius-pill);
+  background: linear-gradient(to bottom, var(--color-lamp-soft), var(--color-lamp), var(--color-lamp-soft));
+}
+.palette {
+  align-self: start;
+  min-block-size: calc(var(--space-screen) - var(--space-8));
+  padding: var(--space-5);
+  border: var(--space-hairline) solid var(--color-border-strong);
+  border-radius: var(--radius-large);
+  background: var(--color-surface-raised);
+  animation: lampAperture var(--duration-command) var(--ease-shutter);
+  transform-origin: right center;
+}
+.palette-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-block-end: var(--space-5);
+  color: var(--color-text);
+  font-size: var(--type-2xl);
+  line-height: var(--line-tight);
+  font-weight: var(--weight-semibold);
+}
+kbd {
+  direction: ltr;
+  padding: var(--space-1) var(--space-2);
+  border: var(--space-hairline) solid var(--color-border);
+  border-radius: var(--radius-small);
+  color: var(--color-lamp-text);
+  font-family: var(--font-latin);
+  font-size: var(--type-xs);
+  font-weight: var(--weight-medium);
+}
+.command-box {
+  display: grid;
+  gap: var(--space-2);
+  margin-block-end: var(--space-5);
+  color: var(--color-text-muted);
+  font-size: var(--type-sm);
+  line-height: var(--line-ui);
+}
+.command-box input {
+  inline-size: var(--space-full);
+  padding: var(--space-3) var(--space-4);
+  border: var(--space-focus) solid var(--color-lamp);
+  border-radius: var(--radius-medium);
+  background: var(--color-canvas);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--type-md);
+}
+.command-group {
+  display: grid;
+  gap: var(--space-3);
+}
+.command {
+  display: grid;
+  grid-template-columns: var(--space-6) 1fr;
+  gap: var(--space-3);
+  align-items: center;
+  inline-size: var(--space-full);
+  padding: var(--space-3);
+  border: var(--space-hairline) solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  font-size: var(--type-md);
+  line-height: var(--line-ui);
+  text-align: start;
+}
+.command.selected {
+  border-color: var(--color-editor);
+  background: var(--color-selection);
+}
+.command strong {
+  display: block;
+  font-weight: var(--weight-semibold);
+}
+.command small {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: var(--type-sm);
+  line-height: var(--line-ui);
+}
+.command mark {
+  display: grid;
+  place-items: center;
+  inline-size: var(--space-6);
+  block-size: var(--space-6);
+  border-radius: var(--radius-pill);
+  background: var(--color-canvas);
+  color: var(--color-editor);
+  font-weight: var(--weight-bold);
+}
+.palette-foot {
+  margin-block-start: var(--space-6);
+  padding-block-start: var(--space-4);
+  border-block-start: var(--space-hairline) solid var(--color-border);
+  color: var(--color-verdigris);
+  font-size: var(--type-sm);
+  line-height: var(--line-ui);
+}
+.latin {
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-family: var(--font-latin);
+  font-size: var(--latin-ui);
+}
+@keyframes lampAperture {
+  from {
+    opacity: var(--opacity-hidden);
+    transform: translateX(var(--motion-aperture)) scaleX(var(--motion-aperture-scale));
+  }
+  to {
+    opacity: var(--opacity-shown);
+    transform: translateX(var(--space-0)) scaleX(var(--opacity-shown));
+  }
+}
+@keyframes marginSlip {
+  from { transform: translateX(var(--motion-margin-slip)); }
+  to { transform: translateX(var(--space-0)); }
+}
+@keyframes inkSettle {
+  from { background: var(--color-lamp-soft); }
+  to { background: var(--color-selection); }
+}
+</style>
+</head>
+<body>
+  <main class="viewport">
+    <section class="instrument" aria-label="SIRAJ writing instrument">
+      <article class="canvas" aria-label="writing canvas">
+        <header class="canvas-head">
+          <div class="brand">سراج <span>SIRAJ</span></div>
+          <div class="status">محلي بالكامل · آخر حفظ ١٢:٤٨</div>
+        </header>
+        <section class="sheet" aria-label="draft page">
+          <aside class="margin-note">الحاشية: البحر قريب من الكامل. راجع الزحاف في السطر الثاني قبل اعتماد الاقتراح.</aside>
+          <div class="folio">دفتر ٤ / الصفحة ١٢ / مسودة غير منشورة</div>
+          <h1>في مديح الضوء القليل</h1>
+          <p>أكتب كي لا يعلو الصوت على المعنى. كل جملة تحتاج مصباحاً صغيراً، لا شاشة تلمع في وجهها. وحين يشتد البياض، أترك للحبر أن يدلني على موضع الحذف.</p>
+          <blockquote>يا صاحبي، لا تسأل الليل اعتذاره<br>فالليل يعرف أن <span class="ink-wash">أهدأ ضوءه</span> باب القصيدة</blockquote>
+          <p>في الهامش أطلب من <bdi class="latin" dir="ltr">SIRAJ</bdi> أن يخفف النبرة، فيعيد العبارة إلى وزنها ولا يمد يده إلى صوت الكاتب.</p>
+        </section>
+      </article>
+      <div class="rail" aria-hidden="true"></div>
+      <aside class="palette" aria-label="command palette open">
+        <header class="palette-head">
+          <span>أوامر الهامش</span>
+          <kbd>⌘ K</kbd>
+        </header>
+        <label class="command-box">
+          <span>الأمر الحالي</span>
+          <input value="خفف النبرة دون كسر الوزن" aria-label="current command">
+        </label>
+        <div class="command-group">
+          <button class="command selected" type="button">
+            <mark>١</mark>
+            <span><strong>راجع الوزن</strong><small>يضع علامة عروضية في الحاشية فقط</small></span>
+          </button>
+          <button class="command" type="button">
+            <mark>٢</mark>
+            <span><strong>اقترح لفظاً أخف</strong><small>ثلاث بدائل من الجذر نفسه</small></span>
+          </button>
+          <button class="command" type="button">
+            <mark>٣</mark>
+            <span><strong>ثبّت صورة النص</strong><small>يحفظ نسخة محلية قبل التعديل</small></span>
+          </button>
+          <button class="command" type="button">
+            <mark>٤</mark>
+            <span><strong>افتح معجم الجذر</strong><small>يعرض الاشتقاقات بجوار السطر</small></span>
+          </button>
+        </div>
+        <footer class="palette-foot">كل أمر يبدأ من الهامش ويعود إليه.</footer>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>
+```
+
+## 7. FORBIDDEN LIST
+1. Chat bubbles, avatars, bot faces, typing indicators, or assistant personas.
+2. Neon gradients, purple-blue AI gloss, glassy SaaS panels, or celebratory sparkles.
+3. Centering the assistant above the document; the page always has priority.
+4. Animating the user's words, caret, selection, paragraph width, or scroll position.
+5. Replacing Arabic typographic rhythm with Latin-first spacing, casing, or punctuation.
+6. Using brass/yellow as generic decoration instead of a precise attention or lamp state.
+7. Hiding irreversible actions behind color alone or soft euphemistic labels.
+8. Turning literary revision into autocomplete spectacle; suggestions must remain marginal, inspectable, and dismissible.

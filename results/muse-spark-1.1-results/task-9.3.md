@@ -1,0 +1,1 @@
+Sous apixaban ou rivaroxaban, la fonction rénale est contrôlée tous les six mois si clairance 30-60 mL/min; en dessous de 30, avis spécialisé requis vu risque hémorragique accru. Surdosage asymptomatique impose suspension et contrôle rénal; hémorragie grave nécessite agent de réversion spécifique ou concentré de complexe prothrombinique selon molécule et disponibilité.

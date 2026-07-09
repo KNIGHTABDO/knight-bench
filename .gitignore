@@ -5,3 +5,4 @@ web-app/dist-ssr
 .DS_Store
 web-app/.vscode/*
 !web-app/.vscode/extensions.json
+.env

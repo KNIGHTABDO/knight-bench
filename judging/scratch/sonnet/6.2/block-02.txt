@@ -1,0 +1,1 @@
+videoTime_i = a * subtitleTime_i + b

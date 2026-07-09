@@ -1,0 +1,1 @@
+Minimize: E(a,b) = Σ (v_i - (a*s_i + b))^2

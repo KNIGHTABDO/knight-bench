@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": false,
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+    "lib": [
+      "ES2021",
+      "DOM",
+      "DOM.Iterable"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "global.d.ts",
+    "lib/db-client.ts",
+    "hooks/useActiveProfile.ts",
+    "components/ContinueWatchingRow.tsx",
+    "app/providers.tsx",
+    "lib/profiles.ts",
+    "lib/db.ts",
+    "hooks/usePlayer.ts",
+    "components/Player.tsx",
+    "components/ProfileSwitcher.tsx",
+    "app/page.tsx",
+    "app/watch/[id]/page.tsx",
+    "app/layout.tsx"
+  ]
+}

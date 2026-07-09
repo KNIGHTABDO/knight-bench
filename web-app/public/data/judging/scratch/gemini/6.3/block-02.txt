@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant Client as Browser Client
+    participant Worker as Cloudflare Worker Edge
+    participant RD as Real-Debrid REST API
+    
+    Client->>Worker: POST /api/add-magnet { magnet: "magnet:?..." } (Unauthenticated or App Auth)
+    Note over Worker: Read Secret Env:<br/>env.REAL_DEBRID_API_TOKEN
+    Worker->>RD: POST /torrents/addMagnet (With Bearer Token)
+    RD->>Worker: 201 Created { id: "XYZ", uri: "..." }
+    
+    Worker->>RD: GET /torrents/info/XYZ (Get files list)
+    RD->>Worker: 200 OK { files: [...] }
+    
+    Note over Worker: Automatically select all files or return files list
+    Worker->>RD: POST /torrents/selectFiles/XYZ { files: "all" }
+    RD->>Worker: 204 No Content
+    
+    Worker->>Client: 200 OK { torrentId: "XYZ", status: "downloading" }

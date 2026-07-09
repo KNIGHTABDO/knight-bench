@@ -1,0 +1,14 @@
+User query
+   │
+   ├─ normalize_for_fts (NFC + ligatures)
+   ├─ detect acronym tokens → ABBREVIATION_TABLE
+   ├─ build MATCH: OR-groups + free-text + phrases
+   │
+   ▼
+SQLite FTS5  (unicode61 remove_diacritics 2)
+   │  bm25(title=3, section=2, body=1)
+   ▼
+App re-rank: + phrase_boost * phrase_hits
+   │
+   ▼
+Hits + BuiltQuery metadata (expansions, ambiguities)

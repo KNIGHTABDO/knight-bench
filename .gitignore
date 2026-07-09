@@ -1,0 +1,7 @@
+web-app/node_modules
+web-app/dist
+web-app/dist-ssr
+*.local
+.DS_Store
+web-app/.vscode/*
+!web-app/.vscode/extensions.json

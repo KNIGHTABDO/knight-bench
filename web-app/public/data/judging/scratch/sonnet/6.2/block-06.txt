@@ -1,0 +1,3 @@
+v2 - v1 = a*(s2 - s1)
+a = (v2 - v1) / (s2 - s1)
+b = v1 - a*s1        (or equivalently b = v2 - a*s2)

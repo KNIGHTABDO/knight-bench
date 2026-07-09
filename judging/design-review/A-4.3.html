@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>سِرَاج — SIRAJ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* SIRAJ tokens — light (marginal light) */
+    :root {
+      --color-bg-canvas: #F4EFE6;
+      --color-bg-chrome: #EDE6DA;
+      --color-bg-elevated: #FFFAF3;
+      --color-bg-muted: #E8E0D2;
+      --color-bg-selection: #E8D4B0;
+      --color-bg-overlay: rgba(28, 25, 21, 0.35);
+      --color-text-primary: #1C1915;
+      --color-text-secondary: #3F3A33;
+      --color-text-tertiary: #7A7268;
+      --color-text-inverse: #F4EFE6;
+      --color-border-subtle: #D4CBBC;
+      --color-border-strong: #B8AD9A;
+      --color-accent: #8B7355;
+      --color-accent-soft: #E8D4B0;
+      --color-focus-ring: #C4A574;
+      --color-danger: #8B3A2F;
+      --color-lamp: #C4A574;
+      --color-ink: #1C1915;
+      --font-display: Amiri, "Noto Naskh Arabic", serif;
+      --font-text: "Noto Naskh Arabic", Amiri, serif;
+      --font-ui: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+      --size-2xs: 0.6875rem;
+      --size-xs: 0.75rem;
+      --size-sm: 0.8125rem;
+      --size-md: 0.875rem;
+      --size-xl: 1.25rem;
+      --size-3xl: 2rem;
+      --line-body: 1.85;
+      --line-ui: 1.4;
+      --line-display: 1.35;
+      --weight-regular: 400;
+      --weight-medium: 500;
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --canvas-max: 42rem;
+      --palette-width: 32rem;
+      --radius-sm: 2px;
+      --radius-md: 4px;
+      --radius-lg: 6px;
+      --duration-fast: 140ms;
+      --duration-base: 200ms;
+      --duration-slow: 320ms;
+      --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-linear: cubic-bezier(0, 0, 1, 1);
+      --elevation-palette: 0 8px 28px rgba(15, 14, 12, 0.12), 0 0 0 1px var(--color-border-subtle);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: var(--font-ui);
+      font-size: var(--size-md);
+      font-weight: var(--weight-regular);
+      line-height: var(--line-ui);
+      color: var(--color-text-primary);
+      background: var(--color-bg-chrome);
+      -webkit-font-smoothing: antialiased;
+    }
+    .app {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100%;
+    }
+    /* Thin chrome — margin, not product */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-3) var(--space-6);
+      background: var(--color-bg-chrome);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-family: var(--font-display);
+      font-size: var(--size-xl);
+      color: var(--color-ink);
+      letter-spacing: 0;
+    }
+    .brand-mark {
+      width: 10px; height: 10px;
+      border-radius: var(--radius-full);
+      background: var(--color-lamp);
+      box-shadow: 0 0 0 3px var(--color-accent-soft);
+    }
+    .top-meta {
+      font-size: var(--size-xs);
+      color: var(--color-text-tertiary);
+      font-weight: var(--weight-medium);
+    }
+    .top-meta kbd {
+      font-family: var(--font-ui);
+      font-size: var(--size-2xs);
+      padding: 0 var(--space-1);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--color-text-secondary);
+    }
+    /* Paper field — 85% of experience */
+    .canvas-wrap {
+      background: var(--color-bg-canvas);
+      display: flex;
+      justify-content: center;
+      padding: var(--space-12) var(--space-6) var(--space-16);
+      position: relative;
+    }
+    .canvas {
+      width: 100%;
+      max-width: var(--canvas-max);
+      font-family: var(--font-text);
+      font-size: var(--size-xl);
+      line-height: var(--line-body);
+      color: var(--color-text-primary);
+      unicode-bidi: plaintext;
+    }
+    .canvas h1 {
+      font-family: var(--font-display);
+      font-size: var(--size-3xl);
+      font-weight: var(--weight-regular);
+      line-height: var(--line-display);
+      margin: 0 0 var(--space-8);
+      color: var(--color-ink);
+    }
+    .canvas p {
+      margin: 0 0 var(--space-5);
+    }
+    .canvas p.verse {
+      margin-bottom: var(--space-3);
+    }
+    .canvas ::selection {
+      background: var(--color-bg-selection);
+    }
+    .latin-inline {
+      font-family: var(--font-text);
+      dir: ltr;
+      unicode-bidi: isolate;
+    }
+    /* Lamp edge: thin status, not chat dock */
+    .status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-2) var(--space-6);
+      background: var(--color-bg-chrome);
+      border-top: 1px solid var(--color-border-subtle);
+      font-size: var(--size-xs);
+      color: var(--color-text-tertiary);
+    }
+    .status-local {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .status-local::before {
+      content: "";
+      width: 6px; height: 6px;
+      border-radius: var(--radius-full);
+      background: var(--color-accent);
+    }
+    /* lamp-open: overlay + palette */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--color-bg-overlay);
+      animation: lamp-backdrop var(--duration-slow) var(--ease-linear) both;
+      z-index: 40;
+    }
+    @keyframes lamp-backdrop {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .palette {
+      position: fixed;
+      top: 18%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(var(--palette-width), calc(100% - var(--space-8)));
+      background: var(--color-bg-elevated);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--elevation-palette);
+      border: 1px solid var(--color-border-strong);
+      z-index: 50;
+      overflow: hidden;
+      animation: lamp-panel var(--duration-base) var(--ease-standard) both;
+    }
+    @keyframes lamp-panel {
+      from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    .palette-input-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-5);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+    .palette-input-row .lamp-tick {
+      width: 3px;
+      height: 1.1em;
+      background: var(--color-focus-ring);
+      border-radius: var(--radius-sm);
+      animation: ink-settle var(--duration-fast) var(--ease-standard) both;
+    }
+    @keyframes ink-settle {
+      from { opacity: 0; transform: scaleY(0.96); }
+      to { opacity: 1; transform: scaleY(1); }
+    }
+    .palette-input {
+      flex: 1;
+      border: 0;
+      outline: none;
+      background: transparent;
+      font-family: var(--font-ui);
+      font-size: var(--size-md);
+      font-weight: var(--weight-medium);
+      color: var(--color-text-primary);
+      line-height: var(--line-ui);
+    }
+    .palette-input::placeholder {
+      color: var(--color-text-tertiary);
+    }
+    .palette-list {
+      list-style: none;
+      margin: 0;
+      padding: var(--space-2);
+      max-height: 16rem;
+      overflow: auto;
+    }
+    .palette-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding: var(--space-3) var(--space-3);
+      border-radius: var(--radius-md);
+      font-size: var(--size-sm);
+      color: var(--color-text-secondary);
+      cursor: default;
+      transition: background-color var(--duration-base) var(--ease-standard);
+    }
+    .palette-item.active {
+      background: var(--color-accent-soft);
+      color: var(--color-text-primary);
+    }
+    .palette-item .cmd {
+      font-weight: var(--weight-medium);
+      color: var(--color-text-primary);
+    }
+    .palette-item .hint {
+      font-size: var(--size-2xs);
+      color: var(--color-text-tertiary);
+      font-family: var(--font-ui);
+      letter-spacing: 0.02em;
+    }
+    .palette-foot {
+      padding: var(--space-2) var(--space-5) var(--space-3);
+      border-top: 1px solid var(--color-border-subtle);
+      font-size: var(--size-2xs);
+      color: var(--color-text-tertiary);
+      display: flex;
+      justify-content: space-between;
+    }
+    .underline-soft {
+      box-decoration-break: clone;
+      background: linear-gradient(transparent 70%, var(--color-accent-soft) 70%);
+      transition: background-color var(--duration-base) var(--ease-standard);
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>سِرَاج</span>
+      </div>
+      <div class="top-meta">مسوّدة · محلي · <kbd>Ctrl</kbd>+<kbd>K</kbd></div>
+    </header>
+
+    <main class="canvas-wrap">
+      <article class="canvas" contenteditable="true" spellcheck="false" aria-label="لوحة الكتابة">
+        <h1>على حافّة الضوء</h1>
+        <p class="verse">أكتبُ والليلُ جارٌ على المكتب،</p>
+        <p class="verse">كأنّ القصيدةَ مصباحٌ صغير</p>
+        <p class="verse">لا يسألُ أحداً، ولا يجيب.</p>
+        <p>
+          في الموضع الذي اعتادت فيه البرامجُ أن تفتحَ حواراً، أُبقي الصفحةَ فارغةً إلا من الحبر.
+          الاقتراحُ يأتي من الهامش: كلمةٌ تُضاء، لا صوتٌ يقاطع.
+          إن احتجتَ عوناً، افتح السراج — لا المحادثة.
+        </p>
+        <p>
+          هذا السطر يتضمّن اسماً لاتينياً: <span class="latin-inline" lang="en" dir="ltr">Ibn al-Rūmī</span> —
+          بنفس الحجم، بلا زخرفة دخيلة.
+        </p>
+        <p>
+          <span class="underline-soft">الجملة التي تُراجع الآن</span> تُضاء بلمسة هامشية، لا بفقاعة.
+        </p>
+      </article>
+    </main>
+
+    <footer class="status">
+      <span class="status-local">محفوظ محلياً · بلا شبكة</span>
+      <span>٤٢ كلمة · قصيدة / مقال</span>
+    </footer>
+  </div>
+
+  <!-- Command palette open (lamp-open) -->
+  <div class="overlay" aria-hidden="true"></div>
+  <div class="palette" role="dialog" aria-modal="true" aria-label="أوامر سراج">
+    <div class="palette-input-row">
+      <span class="lamp-tick" aria-hidden="true"></span>
+      <input class="palette-input" type="text" value="صفّ" aria-label="أمر" autofocus />
+    </div>
+    <ul class="palette-list">
+      <li class="palette-item active">
+        <span class="cmd">صفّ السطر كبيت شعر</span>
+        <span class="hint">Enter</span>
+      </li>
+      <li class="palette-item">
+        <span class="cmd">اقترح قافية من المسوّدة</span>
+        <span class="hint">محلي</span>
+      </li>
+      <li class="palette-item">
+        <span class="cmd">اختصر الفقرة دون تغيير النبرة</span>
+        <span class="hint">محلي</span>
+      </li>
+      <li class="palette-item">
+        <span class="cmd">أظهر العدّ العروضي</span>
+        <span class="hint">⌥ M</span>
+      </li>
+      <li class="palette-item">
+        <span class="cmd">تصدير Markdown</span>
+        <span class="hint">⌘ E</span>
+      </li>
+    </ul>
+    <div class="palette-foot">
+      <span>سراج · أداة لا محاور</span>
+      <span>↑↓ اختيار · Esc يغلق</span>
+    </div>
+  </div>
+</body>
+</html>

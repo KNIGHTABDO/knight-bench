@@ -1,0 +1,9 @@
+src/
+  rd/
+    errors.ts        # RdApiError, classifyHttpError, RdErrorCode
+    rateLimit.ts     # IsolateTokenBucket, CompositeRateLimiter, interfaces
+    status.ts        # RdTorrentStatus, decideTorrentStatus, pollUntilDownloaded
+    client.ts        # RealDebridClient
+    types.ts
+  worker.ts          # HTTP boundary, secrets, authorizeAppUser
+  rd-rate-limiter-do.ts  # optional DO

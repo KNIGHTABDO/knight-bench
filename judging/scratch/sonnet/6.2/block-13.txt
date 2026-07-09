@@ -1,0 +1,2 @@
+frameMs(r) = 1000 / r
+residual(t, r) = min( t mod frameMs(r), frameMs(r) - (t mod frameMs(r)) )

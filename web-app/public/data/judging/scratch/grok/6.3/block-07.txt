@@ -1,0 +1,10 @@
+┌─────────────┐     HTTPS (no RD token)      ┌──────────────────────────┐
+│   Browser   │ ───────────────────────────► │  Cloudflare Worker       │
+│  (untrusted)│ ◄─────────────────────────── │  env.REAL_DEBRID_TOKEN   │
+└─────────────┘   JSON results only          │  RealDebridClient(token) │
+                                             └────────────┬─────────────┘
+                                                          │ Authorization: Bearer <token>
+                                                          ▼
+                                             ┌──────────────────────────┐
+                                             │  api.real-debrid.com     │
+                                             └──────────────────────────┘

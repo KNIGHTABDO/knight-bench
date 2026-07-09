@@ -1,0 +1,4 @@
+magnet_conversion -> waiting_files_selection -> queued -> downloading -> downloaded
+                                                     \-> virus
+                                       (any state) -> error
+                                       (any state) -> dead

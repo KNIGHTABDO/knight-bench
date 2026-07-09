@@ -1,0 +1,1 @@
+a_guess = r_video / r_authoring

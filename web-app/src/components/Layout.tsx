@@ -51,7 +51,7 @@ export function Layout() {
           ))}
         </nav>
         <a
-          href="https://github.com"
+          href="https://github.com/knightabdo/knight-bench"
           target="_blank"
           rel="noreferrer"
           className="hidden md:flex items-center justify-center w-9 h-9 rounded-full shrink-0 transition-transform active:scale-95"

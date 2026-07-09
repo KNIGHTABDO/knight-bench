@@ -10,6 +10,9 @@ cost-efficiency.
 ## What's in this repo
 
 ```
+agent-bench.md       operator playbook: how any coding agent runs a full model suite as
+                      ORCHESTRATOR (sandboxing, prompt extraction, no contamination,
+                      result mirroring into web-app/public/data). Point an agent at this file.
 knight-bench-v1.md   the full benchmark spec: fairness rules, 26 task prompts + rubrics,
                       scoring-spreadsheet structure, judging protocol, versioning rules
 judging/              the v1 judge report, per-task scorecards, mechanical auto-check
@@ -17,6 +20,14 @@ judging/              the v1 judge report, per-task scorecards, mechanical auto-
 results/              raw per-model outputs for every task, one folder per model
 web-app/              an interactive site rendering all of the above — see web-app/README.md
 ```
+
+## Running a new model (agents)
+
+Give your coding agent **only** this instruction:
+
+> Follow `agent-bench.md` exactly. Model under test: `<exact-model-string>`. Raw run only (no scoring).
+
+That protocol forces the agent to stay the orchestrator, spawn a sandboxed subagent per task, extract only **Prompt (copy-paste)** blocks from `knight-bench-v1.md`, write `results/<model>-results/`, and mirror into `web-app/public/data/results/`.
 
 ## The web app
 

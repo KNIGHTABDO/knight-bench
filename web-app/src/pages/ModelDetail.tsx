@@ -5,7 +5,7 @@ import { categories } from "../data/categories";
 import { categoryScoreTable, masterScoreTable } from "../data/report";
 import { taskById } from "../data/tasks";
 import { modelColorVar } from "../data/modelVisuals";
-import type { ModelId } from "../data/types";
+import type { JudgedModelId, ModelId } from "../data/types";
 import { Card, Section, StatusChip, Crown } from "../components/ui";
 import { RemoteMarkdown } from "../components/RemoteMarkdown";
 
@@ -15,6 +15,8 @@ export default function ModelDetail() {
   const [tab, setTab] = useState<"summary" | "run-log">("summary");
   if (!model) return <Navigate to="/models" replace />;
   const modelId = model.id as ModelId;
+  // Only valid inside the model.judged branch below.
+  const judgedId = model.id as JudgedModelId;
 
   return (
     <div className="flex flex-col gap-10">
@@ -30,6 +32,18 @@ export default function ModelDetail() {
         <h1 className="text-3xl sm:text-4xl font-semibold" style={{ color: "var(--ink)" }}>{model.name}</h1>
       </div>
 
+      {!model.judged && (
+        <Card tint>
+          <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--warn)" }}>Judging pending</span>
+          <p className="text-sm mt-1" style={{ color: "var(--ink-secondary)" }}>
+            Raw run complete (26/26 tasks saved) — scorecards, category means, and weighted totals
+            will appear here after the judging cycle. Raw outputs are browsable below and on each task page.
+          </p>
+        </Card>
+      )}
+
+      {model.judged && (
+      <>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <Card><div className="text-xs mb-1" style={{ color: "var(--ink-tertiary)" }}>Weighted total</div><div className="text-2xl font-semibold tabular-nums" style={{ color: "var(--ink)" }}>{model.weightedTotal.toFixed(3)}</div></Card>
         <Card><div className="text-xs mb-1" style={{ color: "var(--ink-tertiary)" }}>FINAL-only</div><div className="text-2xl font-semibold tabular-nums" style={{ color: "var(--ink)" }}>{model.finalOnlyNormalized.toFixed(3)}</div></Card>
@@ -42,7 +56,7 @@ export default function ModelDetail() {
           <div className="flex flex-col gap-3">
             {categories.map((c) => {
               const row = categoryScoreTable.find((r) => r.categoryId === c.id)!;
-              const val = row[modelId];
+              const val = row[judgedId];
               return (
                 <div key={c.id} className="flex items-center gap-3">
                   <Link to={`/categories/${c.id}`} className="w-64 shrink-0 text-sm truncate flex items-center gap-1.5" style={{ color: "var(--ink)" }}>
@@ -74,7 +88,7 @@ export default function ModelDetail() {
               </thead>
               <tbody>
                 {masterScoreTable.map((row) => {
-                  const s = row[modelId];
+                  const s = row[judgedId];
                   const task = taskById(row.taskId);
                   return (
                     <tr key={row.taskId} style={{ borderTop: "1px solid var(--border)" }}>
@@ -93,6 +107,8 @@ export default function ModelDetail() {
           </div>
         </Card>
       </Section>
+      </>
+      )}
 
       <Section
         eyebrow="Run artifacts"

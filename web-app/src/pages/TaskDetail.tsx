@@ -23,11 +23,16 @@ function artifactSrc(model: ModelId, taskId: string, artifact: Artifact) {
   return `/data/judging/evidence/${model}/${taskId}-checks.md`;
 }
 
+const allModelIds = models.map((m) => m.id);
+const isJudged = (m: ModelId) => models.find((x) => x.id === m)!.judged;
+
 export default function TaskDetail() {
   const { id } = useParams();
   const task = id ? tasks.find((t) => t.id === id) : undefined;
   const [activeModel, setActiveModel] = useState<ModelId>("gemini");
   const [artifact, setArtifact] = useState<Artifact>("output");
+  // Unjudged models have raw output only — no scorecard or evidence files.
+  const effectiveArtifact = isJudged(activeModel) ? artifact : "output";
 
   if (!task || !id) return <Navigate to="/categories" replace />;
   const category = categoryById(task.categoryId);
@@ -145,7 +150,7 @@ export default function TaskDetail() {
         title="Raw output, scorecard & evidence"
         action={
           <div className="flex gap-1.5 flex-wrap">
-            {modelOrder.map((m) => (
+            {allModelIds.map((m) => (
               <button
                 key={m}
                 onClick={() => setActiveModel(m)}
@@ -162,23 +167,28 @@ export default function TaskDetail() {
         }
       >
         <div className="flex gap-1.5 mb-1">
-          {(Object.keys(artifactLabels) as Artifact[]).map((a) => (
+          {(Object.keys(artifactLabels) as Artifact[])
+            .filter((a) => a === "output" || isJudged(activeModel))
+            .map((a) => (
             <button
               key={a}
               onClick={() => setArtifact(a)}
               className="text-xs font-medium rounded-full px-3 py-1.5 transition-colors"
               style={{
-                background: artifact === a ? "var(--accent-soft)" : "transparent",
-                color: artifact === a ? "var(--accent)" : "var(--ink-tertiary)",
-                border: `1px solid ${artifact === a ? "var(--accent)" : "var(--border)"}`,
+                background: effectiveArtifact === a ? "var(--accent-soft)" : "transparent",
+                color: effectiveArtifact === a ? "var(--accent)" : "var(--ink-tertiary)",
+                border: `1px solid ${effectiveArtifact === a ? "var(--accent)" : "var(--border)"}`,
               }}
             >
               {artifactLabels[a]}
             </button>
           ))}
+          {!isJudged(activeModel) && (
+            <span className="text-xs self-center" style={{ color: "var(--warn)" }}>Judging pending — raw output only</span>
+          )}
         </div>
         <Card>
-          <RemoteMarkdown key={`${activeModel}-${artifact}-${id}`} src={artifactSrc(activeModel, id, artifact)} />
+          <RemoteMarkdown key={`${activeModel}-${effectiveArtifact}-${id}`} src={artifactSrc(activeModel, id, effectiveArtifact)} />
         </Card>
       </Section>
     </div>

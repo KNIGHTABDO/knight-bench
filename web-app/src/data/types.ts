@@ -20,16 +20,22 @@ export interface Category {
   name: string;
   weightPercent: number;
   description: string;
-  winner: ModelId;
+  winner: JudgedModelId;
 }
 
-export type ModelId = "gemini" | "grok" | "sonnet";
+/** Models with judged scores in the report tables. */
+export type JudgedModelId = "gemini" | "grok" | "sonnet";
+
+/** All models with saved results (judged or raw-run-only). */
+export type ModelId = JudgedModelId | "muse";
 
 export interface ModelInfo {
   id: ModelId;
   name: string;
   fullName: string;
   resultsDir: string;
+  /** false = raw run complete, judging pending; score fields are placeholders. */
+  judged: boolean;
   weightedTotal: number;
   finalOnlyNormalized: number;
   settledContribution: number;

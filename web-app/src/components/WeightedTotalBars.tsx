@@ -1,10 +1,10 @@
-import { models } from "../data/models";
+import { judgedModels } from "../data/models";
 import { modelColorVar } from "../data/modelVisuals";
 
 const MAX = 10;
 
 export function WeightedTotalBars() {
-  const sorted = [...models].sort((a, b) => b.weightedTotal - a.weightedTotal);
+  const sorted = [...judgedModels].sort((a, b) => b.weightedTotal - a.weightedTotal);
   return (
     <div className="flex flex-col gap-4">
       {sorted.map((m, i) => (

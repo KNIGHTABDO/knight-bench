@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { categories } from "../data/categories";
-import { models } from "../data/models";
+import { judgedModels, models } from "../data/models";
 import { executiveVerdict, conflictStatement, scopeNote } from "../data/report";
 import { modelColorVar, modelShortName } from "../data/modelVisuals";
 import { Card, Section, Crown } from "../components/ui";
@@ -15,7 +15,7 @@ export default function Overview() {
       <section className="fade-up flex flex-col gap-6 pt-4">
         <div className="flex items-center gap-2 text-[12px] font-semibold uppercase tracking-widest" style={{ color: "var(--accent)" }}>
           <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--accent)" }} />
-          v1 · 9 categories · 26 tasks · 3 models judged, 78 outputs scored
+          v1 · 9 categories · 26 tasks · 3 models judged, 78 outputs scored · 1 raw run pending judging
         </div>
         <h1 className="text-4xl sm:text-5xl font-semibold leading-[1.08] max-w-3xl" style={{ color: "var(--ink)" }}>
           A personal, reproducible benchmark for frontier models against real workloads.
@@ -74,7 +74,7 @@ export default function Overview() {
 
       <Section eyebrow="Per model" title="Headline numbers">
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {models.map((m) => (
+          {judgedModels.map((m) => (
             <div key={m.id} className="glass rounded-[var(--radius-lg)] p-5 flex flex-col gap-3">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full" style={{ background: modelColorVar[m.id] }} />

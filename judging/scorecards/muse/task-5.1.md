@@ -1,0 +1,6 @@
+SCORE: 9 (FINAL)
+AUTO_CHECKS: 4/4, failures: none
+BAND_JUSTIFICATION:
+The full 7–8 band is delivered: an FTS5 external-content table with sync triggers, bm25() with column weights, a no-LLM hop-1 built from structural priors (regex pattern classifier, section-type normalization table, "Explicitly REMOVE `prise en charge`, `traitement` from Hop-1 query to avoid BM25 pollution"), an honest LLM-variant comparison that concludes against itself on the budget ("Cloudflare AI Llama 3.2 1B … violates budget"), item/specialty-filtered hops with a backoff ladder, and three real failure modes (bridge ambiguity/anaphora, hop-1→hop-2 vocabulary gap, filter over-pruning with cross-specialty bridges). The 9–10 extras are present: `remove_diacritics 2` accent folding at tokenizer level, a synonym/alias expansion table joined into query building, app-side metadata reranking within budget, and measurable stopping criteria (bm25 score threshold −2.0, top-3 bridge voting). Held at 9 because the FTS5 delete/update triggers pass only the `text` column to the 'delete' command (FTS5 requires all indexed column values — this DDL errors as written), and the prose says contentless (`content=''`) while the schema is external-content.
+UNVERIFIED_CLAIMS: bridge recall figures (0.71/0.84/0.88) attributed to an "EDN-bank" test that is not shown
+RED_FLAGS: none

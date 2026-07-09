@@ -1,0 +1,6 @@
+SCORE: 8 (FINAL)
+AUTO_CHECKS: 4/4, failures: none
+BAND_JUSTIFICATION:
+The 7–8 band is fully met: honest MKV row ("Never send MKV bytes to `<video>`"), detection in the correct order with the iOS 17.4+ nuance spelled out ("iOS 17.4+: returns `true`, so naive code would pick hls.js/MSE over native, losing AirPlay/PiP/battery"), the canPlayType `"" | "maybe" | "probably"` subtlety, three well-chosen traps each tied to a concrete defending line (playsinline before src, play() promise NotAllowedError → needs-user-gesture event, preload=metadata to surface Range/206 and content-type failures early), and error recovery that correctly differentiates hls.js typed fatal events (startLoad/recoverMediaError, no video.load() to avoid detaching MediaSource) from the native path's coarse MediaError with full-reload semantics. Position-restore on native reload is addressed via Safari's currentTime-preservation behavior. Held at 8: the 9–10 fMP4-vs-TS iOS-version specifics are thin, no DRM/FairPlay boundary note, and the hls.js network-retry block double-manipulates retryCount (increments, schedules, then decrements inside the callback) — functional but sloppy.
+UNVERIFIED_CLAIMS: "iPhone doesn't emit `canplay` for native HLS until video becomes visible and in DOM"; Samsung canPlayType "maybe" claim
+RED_FLAGS: none

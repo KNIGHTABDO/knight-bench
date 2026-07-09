@@ -1,0 +1,6 @@
+SCORE: 8 (FINAL)
+AUTO_CHECKS: 4/4, failures: none
+BAND_JUSTIFICATION:
+All five requirements are met and mechanically verified: hand-rolled first-strong detection over all five given Arabic ranges with neutral-only fallback to `fallbackDir`, `unicode-bidi: plaintext` on preview and textarea with a correct and unusually precise explanatory comment ("plaintext gives per-paragraph detection + isolation… keeps an LTR run like 'Next.js 15' from being split"), zero physical direction properties (grep-verified), and live caret/alignment via `dir` recomputed per keystroke with `text-align: start`. The BIDI NOTES are real failure modes — punctuation misplacement under global locale, weak-number reordering ("visually 'أستخدم 15 Next.js كل يوم'"), and physical-property chrome that fails to mirror — including the expert distinction that `dir=auto` alone "sets only base direction once, not isolation of inner runs". Held at 8: the 9–10 band's Arabic-Indic vs European digit discussion is absent, and the `.bc-preview-wrap` RTL override (`align-items: flex-end` on a container whose flex-start already flips with `dir`) double-flips the bubble to the visually wrong side in RTL — a real minor layout bug.
+UNVERIFIED_CLAIMS: none
+RED_FLAGS: none

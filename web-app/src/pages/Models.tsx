@@ -7,7 +7,7 @@ import { WeightedTotalBars } from "../components/WeightedTotalBars";
 export default function Models() {
   return (
     <div className="flex flex-col gap-10">
-      <Section eyebrow="This run" title="3 models judged, 78 outputs scored · Muse Spark 1.1 raw run complete, judging pending">
+      <Section eyebrow="This run" title="4 models judged, 104 outputs scored">
         <Card>
           <WeightedTotalBars />
         </Card>
@@ -31,7 +31,7 @@ export default function Models() {
       <Section eyebrow="From the spec" title="All models under test in KNIGHT-BENCH v1">
         <Card tint>
           <p className="text-sm mb-3" style={{ color: "var(--ink-secondary)" }}>
-            Not every model listed in the spec has been run yet in this cycle — the four above have saved results; Muse Spark 1.1 has raw outputs only (26/26) and is awaiting judging.
+            Not every model listed in the spec has been run yet in this cycle — the four above have saved, judged results. Muse Spark 1.1's Cat 2 / Cat 4 / medical scores are provisional pending owner ratification.
           </p>
           <div className="flex flex-wrap gap-2">
             {modelsUnderTestV1.map((name) => (

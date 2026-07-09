@@ -1,0 +1,6 @@
+SCORE: 9 (FINAL)
+AUTO_CHECKS: 4/4, failures: none
+BAND_JUSTIFICATION:
+This is the rare brief that fits the 9–10 description "written by someone who has been burned": the NON-goals block precisely the tempting detours (no Background Sync API, no editor upgrades, no new backend routes — "If force param missing, surface question, do not create new route"), dependency policy pre-approves exact pinned packages and bans the likely creep (localForage, zustand), and the failure protocol anticipates agent pathologies directly ("Do not fake pass with mocks that bypass queue logic"). The dangerous decision is pre-decided — conflict detection rule, conflicts store semantics, and a degrade path ("ship detection only… never auto-delete server or local") — verification is measurable (four commands plus four concrete DevTools offline scenarios with observable outcomes), migration safety says "never delete LS key", and the five assumptions are all marked TO VERIFY with a violation-reporting channel. At 796 words it lands under the limit with essentially zero filler. Held at 9 only because a couple of scope items compress to near-ambiguity for a literal agent (e.g. "interval 30s if queue non-empty" leaves timer lifecycle unstated).
+UNVERIFIED_CLAIMS: none (assumptions are explicitly flagged as assumptions)
+RED_FLAGS: none

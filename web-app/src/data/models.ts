@@ -38,18 +38,18 @@ export const models: ModelInfo[] = [
     provisionalIfTen: 8.388,
   },
   {
-    // Raw run complete 2026-07-09 (26/26); judging not yet performed —
-    // score fields are placeholders, never display them as real scores.
+    // Judged 2026-07-09 (26/26). Cat 2, 4, 5.3, 8.2, 9.3 tasks are PROVISIONAL
+    // pending owner medical/design ratification; weightedTotal includes them.
     id: "muse",
     name: "Muse Spark 1.1",
     fullName: "Muse Spark 1.1",
     resultsDir: "muse-spark-1.1-results",
-    judged: false,
-    weightedTotal: 0,
-    finalOnlyNormalized: 0,
-    settledContribution: 0,
-    provisionalIfZero: 0,
-    provisionalIfTen: 0,
+    judged: true,
+    weightedTotal: 8.283,
+    finalOnlyNormalized: 8.216,
+    settledContribution: 4.758,
+    provisionalIfZero: 4.758,
+    provisionalIfTen: 8.967,
   },
 ];
 

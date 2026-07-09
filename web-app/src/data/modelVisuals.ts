@@ -14,5 +14,5 @@ export const modelShortName: Record<ModelId, string> = {
   muse: "Muse Spark 1.1",
 };
 
-/** Judged models only — drives score tables, charts, and per-task evidence tabs. */
-export const modelOrder: JudgedModelId[] = ["gemini", "grok", "sonnet"];
+/** Drives score tables, charts, and per-task evidence tabs. */
+export const modelOrder: JudgedModelId[] = ["gemini", "grok", "sonnet", "muse"];

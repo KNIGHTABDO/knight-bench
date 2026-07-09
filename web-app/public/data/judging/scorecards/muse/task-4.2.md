@@ -1,0 +1,6 @@
+SCORE: 6 (PROVISIONAL)
+AUTO_CHECKS: 3/4, failures: [FAIL] setProgress state-setter inside a rAF loop (per-frame React re-render)
+BAND_JUSTIFICATION:
+The design idea is genuinely sharp and executed — "A single cold stone slab lit from above like a mosque floor at night. Depth comes from carved inset shadows and letter-pressed paper, not effects" — with all three explicit bans respected, RTL progress correctly right-anchored, authored interactive states (hover lift, active inset press, playing/paused canvas dimming), and a generative dual-oscillator waveform on canvas. But the rubric's 5–6 band names this exact defect: "rAF present but re-renders React on every frame" — the progress-advance effect runs `setProgress` inside its rAF loop for the whole playing session, and the strategy comment's claim of "no React state inside draw" is only true of the second loop, so the stated performance strategy is partially wrong. There are also two competing rAF loops writing to the same `rafRef`, so the cancel-on-cleanup of one can orphan the other. Between 5–6 and 7–8, the state-in-rAF violation holds it at 6. Blind visual review pending.
+UNVERIFIED_CLAIMS: "60fps without GC or layout thrash" (contradicted by per-frame setState)
+RED_FLAGS: rAF handle collision between the progress loop and the draw loop (both use rafRef.current)

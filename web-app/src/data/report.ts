@@ -1,69 +1,69 @@
 import type { MasterScoreRow, CategoryScoreRow } from "./types";
 
 export const conflictStatement =
-  "I am GPT-5-based Codex, not one of the tested model families named in this run (Gemini 3.5 Flash, Grok 4.5, Claude Sonnet 5). I still applied extra scrutiny to every score >=8 and did not adjust scores for perceived lab style.";
+  "The original three models (Gemini 3.5 Flash, Grok 4.5, Claude Sonnet 5) were judged by GPT-5-based Codex. Muse Spark 1.1 was judged separately by Claude Fable 5. Conflict of interest to weigh: the muse-spark-1.1 run log shows anomalies (workers writing to claude-* folders) that suggest a possible Claude-family model, and a Claude-family judge scored it first among four. Every muse score >=9 was tied to a mechanical observation this session (compile/run/grep/word-count), no score was raised on an unverified claim, and all Cat 2 / Cat 4 / 5.3 / 8.2 / 9.3 medical and design scores remain PROVISIONAL pending owner ratification. Treat muse's first place as provisional until an independent judge re-scores it.";
 
 export const scopeNote =
-  "The user prompt and section 10 mention 27 tasks, but knight-bench-v1.md contains 26 task headings and each result folder contains 26 task-*.md files. The judge scored all official tasks present in the benchmark (78 model-task outputs) and did not invent a phantom 27th task with no prompt or rubric.";
+  "The user prompt and section 10 mention 27 tasks, but knight-bench-v1.md contains 26 task headings and each result folder contains 26 task-*.md files. Four models are now scored (104 model-task outputs): the original three plus Muse Spark 1.1. No phantom 27th task was invented.";
 
 export const executiveVerdict = {
-  winner: "grok" as const,
+  winner: "muse" as const,
   summary:
-    "Overall winner on all provisional+final scores: Grok 4.5 (7.767/10), ahead of Claude Sonnet 5 (7.529) and Gemini 3.5 Flash (7.208).",
+    "Overall winner on all provisional+final scores: Muse Spark 1.1 (8.283/10), ahead of Grok 4.5 (7.767), Claude Sonnet 5 (7.529) and Gemini 3.5 Flash (7.208). Muse's lead rests partly on provisional medical (Cat 2) and design (Cat 4) scores still awaiting owner ratification.",
   categoryWinners: [
-    { categoryId: 1, model: "gemini" as const },
-    { categoryId: 2, model: "gemini" as const },
+    { categoryId: 1, model: "muse" as const },
+    { categoryId: 2, model: "muse" as const },
     { categoryId: 3, model: "sonnet" as const },
-    { categoryId: 4, model: "sonnet" as const },
+    { categoryId: 4, model: "muse" as const },
     { categoryId: 5, model: "grok" as const },
     { categoryId: 6, model: "sonnet" as const },
-    { categoryId: 7, model: "grok" as const },
+    { categoryId: 7, model: "muse" as const },
     { categoryId: 8, model: "grok" as const },
-    { categoryId: 9, model: "gemini" as const },
+    { categoryId: 9, model: "muse" as const },
   ],
   personalityRead:
-    "Gemini is concise and usually functional but more likely to miss one hard engineering edge; Grok is expansive, systems-minded, and strongest on exhaustive traps, but sometimes violates budgets; Sonnet is careful and high-taste on reasoning/design, but had several format/runnability misses.",
+    "Gemini is concise and usually functional but more likely to miss one hard engineering edge; Grok is expansive, systems-minded, and strongest on exhaustive traps, but sometimes violates budgets; Sonnet is careful and high-taste on reasoning/design, but had several format/runnability misses; Muse is the most consistent all-rounder this cycle — it compiles cleanly, respects hard budgets (9.2 at 14 lines, 8.1 a scripted 50/50), and pre-decides risky calls, though it leaves elided test suites in 5.2/6.2 and its provisional medical/design scores are not yet owner-ratified.",
 };
 
 export const masterScoreTable: MasterScoreRow[] = [
-  { taskId: "1.1", gemini: { score: 8, status: "FINAL", autoChecksPassed: 6, autoChecksTotal: 6 }, grok: { score: 8, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 6 }, sonnet: { score: 6, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 6 } },
-  { taskId: "1.2", gemini: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 5 }, grok: { score: 8, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 5 }, sonnet: { score: 9, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 5 } },
-  { taskId: "1.3", gemini: { score: 6, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 7 }, grok: { score: 6, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 7 }, sonnet: { score: 4, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 7 } },
-  { taskId: "2.1", gemini: { score: 8, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 4 }, grok: { score: 7, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 4 }, sonnet: { score: 8, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 4 } },
-  { taskId: "2.2", gemini: { score: 9, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 4 }, grok: { score: 8, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 4 }, sonnet: { score: 8, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 4 } },
-  { taskId: "2.3", gemini: { score: 8, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 3 }, grok: { score: 6, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 3 }, sonnet: { score: 9, status: "PROVISIONAL", autoChecksPassed: 2, autoChecksTotal: 3 } },
-  { taskId: "3.1", gemini: { score: 6, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 4 }, grok: { score: 9, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, sonnet: { score: 9, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 } },
-  { taskId: "3.2", gemini: { score: 7, status: "FINAL", autoChecksPassed: 2, autoChecksTotal: 3 }, grok: { score: 9, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 3 }, sonnet: { score: 9, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 3 } },
-  { taskId: "3.3", gemini: { score: 7, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 4 }, grok: { score: 9, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, sonnet: { score: 10, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 } },
-  { taskId: "4.1", gemini: { score: 4, status: "PROVISIONAL", autoChecksPassed: 2, autoChecksTotal: 5 }, grok: { score: 5, status: "PROVISIONAL", autoChecksPassed: 2, autoChecksTotal: 5 }, sonnet: { score: 8, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 5 } },
-  { taskId: "4.2", gemini: { score: 6, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 5 }, grok: { score: 8, status: "PROVISIONAL", autoChecksPassed: 5, autoChecksTotal: 5 }, sonnet: { score: 8, status: "PROVISIONAL", autoChecksPassed: 5, autoChecksTotal: 5 } },
-  { taskId: "4.3", gemini: { score: 6, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 5 }, grok: { score: 7, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 5 }, sonnet: { score: 5, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 5 } },
-  { taskId: "5.1", gemini: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, grok: { score: 9, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 4 }, sonnet: { score: 9, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 4 } },
-  { taskId: "5.2", gemini: { score: 8, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 5 }, grok: { score: 10, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 5 }, sonnet: { score: 4, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 5 } },
-  { taskId: "5.3", gemini: { score: 8, status: "PROVISIONAL", autoChecksPassed: 5, autoChecksTotal: 5 }, grok: { score: 9, status: "PROVISIONAL", autoChecksPassed: 5, autoChecksTotal: 5 }, sonnet: { score: 9, status: "PROVISIONAL", autoChecksPassed: 5, autoChecksTotal: 5 } },
-  { taskId: "6.1", gemini: { score: 5, status: "FINAL", autoChecksPassed: 2, autoChecksTotal: 4 }, grok: { score: 5, status: "FINAL", autoChecksPassed: 2, autoChecksTotal: 4 }, sonnet: { score: 8, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 4 } },
-  { taskId: "6.2", gemini: { score: 8, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 5 }, grok: { score: 8, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 5 }, sonnet: { score: 9, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 5 } },
-  { taskId: "6.3", gemini: { score: 7, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 5 }, grok: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 5 }, sonnet: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 5 } },
-  { taskId: "7.1", gemini: { score: 5, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 4 }, grok: { score: 4, status: "FINAL", autoChecksPassed: 2, autoChecksTotal: 4 }, sonnet: { score: 4, status: "FINAL", autoChecksPassed: 2, autoChecksTotal: 4 } },
-  { taskId: "7.2", gemini: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, grok: { score: 10, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, sonnet: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 } },
-  { taskId: "7.3", gemini: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, grok: { score: 10, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, sonnet: { score: 10, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 } },
-  { taskId: "8.1", gemini: { score: 6, status: "FINAL", autoChecksPassed: 45, autoChecksTotal: 50 }, grok: { score: 10, status: "FINAL", autoChecksPassed: 50, autoChecksTotal: 50 }, sonnet: { score: 5, status: "FINAL", autoChecksPassed: 44, autoChecksTotal: 50 } },
-  { taskId: "8.2", gemini: { score: 8, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 4 }, grok: { score: 10, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 4 }, sonnet: { score: 8, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 4 } },
-  { taskId: "9.1", gemini: { score: 8, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 3 }, grok: { score: 9, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 3 }, sonnet: { score: 8, status: "FINAL", autoChecksPassed: 2, autoChecksTotal: 3 } },
-  { taskId: "9.2", gemini: { score: 8, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 3 }, grok: { score: 6, status: "FINAL", autoChecksPassed: 2, autoChecksTotal: 3 }, sonnet: { score: 8, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 3 } },
-  { taskId: "9.3", gemini: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, grok: { score: 9, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, sonnet: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 } },
+  { taskId: "1.1", gemini: { score: 8, status: "FINAL", autoChecksPassed: 6, autoChecksTotal: 6 }, grok: { score: 8, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 6 }, sonnet: { score: 6, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 6 }, muse: { score: 9, status: "FINAL", autoChecksPassed: 6, autoChecksTotal: 6 } },
+  { taskId: "1.2", gemini: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 5 }, grok: { score: 8, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 5 }, sonnet: { score: 9, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 5 }, muse: { score: 8, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 5 } },
+  { taskId: "1.3", gemini: { score: 6, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 7 }, grok: { score: 6, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 7 }, sonnet: { score: 4, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 7 }, muse: { score: 6, status: "FINAL", autoChecksPassed: 6, autoChecksTotal: 6 } },
+  { taskId: "2.1", gemini: { score: 8, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 4 }, grok: { score: 7, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 4 }, sonnet: { score: 8, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 4 }, muse: { score: 9, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 4 } },
+  { taskId: "2.2", gemini: { score: 9, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 4 }, grok: { score: 8, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 4 }, sonnet: { score: 8, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 4 }, muse: { score: 9, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 4 } },
+  { taskId: "2.3", gemini: { score: 8, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 3 }, grok: { score: 6, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 3 }, sonnet: { score: 9, status: "PROVISIONAL", autoChecksPassed: 2, autoChecksTotal: 3 }, muse: { score: 9, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 3 } },
+  { taskId: "3.1", gemini: { score: 6, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 4 }, grok: { score: 9, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, sonnet: { score: 9, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, muse: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 } },
+  { taskId: "3.2", gemini: { score: 7, status: "FINAL", autoChecksPassed: 2, autoChecksTotal: 3 }, grok: { score: 9, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 3 }, sonnet: { score: 9, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 3 }, muse: { score: 9, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 3 } },
+  { taskId: "3.3", gemini: { score: 7, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 4 }, grok: { score: 9, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, sonnet: { score: 10, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, muse: { score: 10, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 } },
+  { taskId: "4.1", gemini: { score: 4, status: "PROVISIONAL", autoChecksPassed: 2, autoChecksTotal: 5 }, grok: { score: 5, status: "PROVISIONAL", autoChecksPassed: 2, autoChecksTotal: 5 }, sonnet: { score: 8, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 5 }, muse: { score: 8, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 5 } },
+  { taskId: "4.2", gemini: { score: 6, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 5 }, grok: { score: 8, status: "PROVISIONAL", autoChecksPassed: 5, autoChecksTotal: 5 }, sonnet: { score: 8, status: "PROVISIONAL", autoChecksPassed: 5, autoChecksTotal: 5 }, muse: { score: 6, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 4 } },
+  { taskId: "4.3", gemini: { score: 6, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 5 }, grok: { score: 7, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 5 }, sonnet: { score: 5, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 5 }, muse: { score: 9, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 5 } },
+  { taskId: "5.1", gemini: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, grok: { score: 9, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 4 }, sonnet: { score: 9, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 4 }, muse: { score: 9, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 } },
+  { taskId: "5.2", gemini: { score: 8, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 5 }, grok: { score: 10, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 5 }, sonnet: { score: 4, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 5 }, muse: { score: 6, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 5 } },
+  { taskId: "5.3", gemini: { score: 8, status: "PROVISIONAL", autoChecksPassed: 5, autoChecksTotal: 5 }, grok: { score: 9, status: "PROVISIONAL", autoChecksPassed: 5, autoChecksTotal: 5 }, sonnet: { score: 9, status: "PROVISIONAL", autoChecksPassed: 5, autoChecksTotal: 5 }, muse: { score: 8, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 4 } },
+  { taskId: "6.1", gemini: { score: 5, status: "FINAL", autoChecksPassed: 2, autoChecksTotal: 4 }, grok: { score: 5, status: "FINAL", autoChecksPassed: 2, autoChecksTotal: 4 }, sonnet: { score: 8, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 4 }, muse: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 } },
+  { taskId: "6.2", gemini: { score: 8, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 5 }, grok: { score: 8, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 5 }, sonnet: { score: 9, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 5 }, muse: { score: 8, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 4 } },
+  { taskId: "6.3", gemini: { score: 7, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 5 }, grok: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 5 }, sonnet: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 5 }, muse: { score: 8, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 5 } },
+  { taskId: "7.1", gemini: { score: 5, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 4 }, grok: { score: 4, status: "FINAL", autoChecksPassed: 2, autoChecksTotal: 4 }, sonnet: { score: 4, status: "FINAL", autoChecksPassed: 2, autoChecksTotal: 4 }, muse: { score: 9, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 } },
+  { taskId: "7.2", gemini: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, grok: { score: 10, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, sonnet: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, muse: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 } },
+  { taskId: "7.3", gemini: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, grok: { score: 10, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, sonnet: { score: 10, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, muse: { score: 10, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 } },
+  { taskId: "8.1", gemini: { score: 6, status: "FINAL", autoChecksPassed: 45, autoChecksTotal: 50 }, grok: { score: 10, status: "FINAL", autoChecksPassed: 50, autoChecksTotal: 50 }, sonnet: { score: 5, status: "FINAL", autoChecksPassed: 44, autoChecksTotal: 50 }, muse: { score: 10, status: "FINAL", autoChecksPassed: 50, autoChecksTotal: 50 } },
+  { taskId: "8.2", gemini: { score: 8, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 4 }, grok: { score: 10, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 4 }, sonnet: { score: 8, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 4 }, muse: { score: 8, status: "PROVISIONAL", autoChecksPassed: 3, autoChecksTotal: 3 } },
+  { taskId: "9.1", gemini: { score: 8, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 3 }, grok: { score: 9, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 3 }, sonnet: { score: 8, status: "FINAL", autoChecksPassed: 2, autoChecksTotal: 3 }, muse: { score: 9, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 3 } },
+  { taskId: "9.2", gemini: { score: 8, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 3 }, grok: { score: 6, status: "FINAL", autoChecksPassed: 2, autoChecksTotal: 3 }, sonnet: { score: 8, status: "FINAL", autoChecksPassed: 3, autoChecksTotal: 3 }, muse: { score: 9, status: "FINAL", autoChecksPassed: 5, autoChecksTotal: 5 } },
+  { taskId: "9.3", gemini: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, grok: { score: 9, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, sonnet: { score: 8, status: "FINAL", autoChecksPassed: 4, autoChecksTotal: 4 }, muse: { score: 9, status: "PROVISIONAL", autoChecksPassed: 4, autoChecksTotal: 4 } },
 ];
 
 export const categoryScoreTable: CategoryScoreRow[] = [
-  { categoryId: 1, gemini: 7.33, grok: 7.33, sonnet: 6.33 },
-  { categoryId: 2, gemini: 8.33, grok: 7.0, sonnet: 8.33 },
-  { categoryId: 3, gemini: 6.67, grok: 9.0, sonnet: 9.33 },
-  { categoryId: 4, gemini: 5.33, grok: 6.67, sonnet: 7.0 },
-  { categoryId: 5, gemini: 8.0, grok: 9.33, sonnet: 7.33 },
-  { categoryId: 6, gemini: 6.67, grok: 7.0, sonnet: 8.33 },
-  { categoryId: 7, gemini: 7.0, grok: 8.0, sonnet: 7.33 },
-  { categoryId: 8, gemini: 7.0, grok: 10.0, sonnet: 6.5 },
-  { categoryId: 9, gemini: 8.0, grok: 8.0, sonnet: 8.0 },
+  { categoryId: 1, gemini: 7.33, grok: 7.33, sonnet: 6.33, muse: 7.67 },
+  { categoryId: 2, gemini: 8.33, grok: 7.0, sonnet: 8.33, muse: 9.0 },
+  { categoryId: 3, gemini: 6.67, grok: 9.0, sonnet: 9.33, muse: 9.0 },
+  { categoryId: 4, gemini: 5.33, grok: 6.67, sonnet: 7.0, muse: 7.67 },
+  { categoryId: 5, gemini: 8.0, grok: 9.33, sonnet: 7.33, muse: 7.67 },
+  { categoryId: 6, gemini: 6.67, grok: 7.0, sonnet: 8.33, muse: 8.0 },
+  { categoryId: 7, gemini: 7.0, grok: 8.0, sonnet: 7.33, muse: 9.0 },
+  { categoryId: 8, gemini: 7.0, grok: 10.0, sonnet: 6.5, muse: 9.0 },
+  { categoryId: 9, gemini: 8.0, grok: 8.0, sonnet: 8.0, muse: 9.0 },
 ];
 
 export const deepDives: { categoryId: number; title: string; text: string }[] = [
@@ -145,4 +145,5 @@ export const provisionalSwing = [
   { model: "gemini" as const, current: 7.208, ifZero: 4.242, ifTen: 8.367 },
   { model: "grok" as const, current: 7.767, ifZero: 4.792, ifTen: 8.917 },
   { model: "sonnet" as const, current: 7.529, ifZero: 4.263, ifTen: 8.388 },
+  { model: "muse" as const, current: 8.283, ifZero: 4.758, ifTen: 8.967 },
 ];

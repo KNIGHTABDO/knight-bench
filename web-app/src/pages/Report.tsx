@@ -16,6 +16,7 @@ import {
   executiveVerdict,
 } from "../data/report";
 import { modelColorVar, modelOrder, modelShortName } from "../data/modelVisuals";
+import { modelById } from "../data/models";
 import { Card, Section, StatusChip, Crown } from "../components/ui";
 
 export default function Report() {
@@ -127,15 +128,15 @@ export default function Report() {
                 })}
                 <tr style={{ borderTop: "2px solid var(--border-strong)" }}>
                   <td className="px-4 py-3 font-semibold" colSpan={2} style={{ color: "var(--ink)" }}>Weighted total (all scores)</td>
-                  <td className="px-4 py-3 font-semibold tabular-nums" style={{ color: "var(--ink)" }}>7.208</td>
-                  <td className="px-4 py-3 font-semibold tabular-nums" style={{ color: "var(--ink)" }}>7.767</td>
-                  <td className="px-4 py-3 font-semibold tabular-nums" style={{ color: "var(--ink)" }}>7.529</td>
+                  {modelOrder.map((m) => (
+                    <td key={m} className="px-4 py-3 font-semibold tabular-nums" style={{ color: "var(--ink)" }}>{modelById(m).weightedTotal.toFixed(3)}</td>
+                  ))}
                 </tr>
                 <tr>
-                  <td className="px-4 py-3 text-xs" colSpan={2} style={{ color: "var(--ink-tertiary)" }}>FINAL-only normalized (58.75% settled)</td>
-                  <td className="px-4 py-3 text-xs tabular-nums" style={{ color: "var(--ink-tertiary)" }}>7.220</td>
-                  <td className="px-4 py-3 text-xs tabular-nums" style={{ color: "var(--ink-tertiary)" }}>8.156</td>
-                  <td className="px-4 py-3 text-xs tabular-nums" style={{ color: "var(--ink-tertiary)" }}>7.255</td>
+                  <td className="px-4 py-3 text-xs" colSpan={2} style={{ color: "var(--ink-tertiary)" }}>FINAL-only normalized</td>
+                  {modelOrder.map((m) => (
+                    <td key={m} className="px-4 py-3 text-xs tabular-nums" style={{ color: "var(--ink-tertiary)" }}>{modelById(m).finalOnlyNormalized.toFixed(3)}</td>
+                  ))}
                 </tr>
               </tbody>
             </table>

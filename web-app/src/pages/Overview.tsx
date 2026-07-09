@@ -15,7 +15,7 @@ export default function Overview() {
       <section className="fade-up flex flex-col gap-6 pt-4">
         <div className="flex items-center gap-2 text-[12px] font-semibold uppercase tracking-widest" style={{ color: "var(--accent)" }}>
           <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--accent)" }} />
-          v1 · 9 categories · 26 tasks · 3 models judged, 78 outputs scored · 1 raw run pending judging
+          v1 · 9 categories · 26 tasks · 4 models judged, 104 outputs scored
         </div>
         <h1 className="text-4xl sm:text-5xl font-semibold leading-[1.08] max-w-3xl" style={{ color: "var(--ink)" }}>
           A personal, reproducible benchmark for frontier models against real workloads.
@@ -73,7 +73,7 @@ export default function Overview() {
       </Section>
 
       <Section eyebrow="Per model" title="Headline numbers">
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {judgedModels.map((m) => (
             <div key={m.id} className="glass rounded-[var(--radius-lg)] p-5 flex flex-col gap-3">
               <div className="flex items-center gap-2">
@@ -121,7 +121,7 @@ export default function Overview() {
         </div>
       </Section>
 
-      <Section eyebrow="Score matrix" title="Category scores, all 3 models">
+      <Section eyebrow="Score matrix" title="Category scores, all 4 models">
         <Card>
           <CategoryBarChart />
         </Card>

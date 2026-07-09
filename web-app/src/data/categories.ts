@@ -7,7 +7,7 @@ export const categories: Category[] = [
     weightPercent: 20,
     description:
       "Does the model explore and plan before writing code, respect constraints, and produce working diffs — or does it hallucinate file structure and vomit code immediately?",
-    winner: "gemini",
+    winner: "muse",
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ export const categories: Category[] = [
     weightPercent: 20,
     description:
       "Clinical accuracy in French, correct terminology (the terminology *is* the exam), showing work with units, and — critically — refusing to bluff.",
-    winner: "gemini",
+    winner: "muse",
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ export const categories: Category[] = [
     weightPercent: 15,
     description:
       "Does it produce work in the Active Theory / Unseen / Studio Freight lineage, or default AI slop? Judged blind. Instant penalties (−2 each, stackable): purple-to-blue gradient hero, emoji in headings, default shadcn look presented as \"premium\", glassmorphism cards on a generic dark background, \"Inter for everything\".",
-    winner: "sonnet",
+    winner: "muse",
   },
   {
     id: 5,
@@ -54,7 +54,7 @@ export const categories: Category[] = [
     weightPercent: 10,
     description:
       "Writing briefs and multi-agent plans other agents will actually follow, and catching production-breaking flaws in a bad plan.",
-    winner: "grok",
+    winner: "muse",
   },
   {
     id: 8,
@@ -70,7 +70,7 @@ export const categories: Category[] = [
     weightPercent: 2.5,
     description:
       "Quality per token under a hard word/line budget. The category where cheap models get to win.",
-    winner: "gemini",
+    winner: "muse",
   },
 ];
 

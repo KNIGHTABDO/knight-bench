@@ -1,0 +1,6 @@
+SCORE: 8 (PROVISIONAL)
+AUTO_CHECKS: 4/5, failures: [FAIL] logical properties in CSS — physical left/right used
+BAND_JUSTIFICATION:
+From the code and rationale this sits in the 7–8 band: the concept is singular and executed ("مدار means orbit — the page itself orbits the word; a single red dot circles the logotype like a projector lamp"), the wordmark is composed per-letter with clip-path staggered reveal, scroll-linked scale/rotation/letter-spacing, and an orbital track — treated as an object, not typed. The palette commits (obsidian #090806, bone #EDE6D6, archival red #E11D0F, sand #C2A878 — no purple, no gray drift) and motion is choreographed: rAF-throttled scroll handler driving wordmark parallax and a horizontal film-rail scrub, plus a timed loader and film-grain overlay. The rationale's refusals show taste ("no gradients mesh, no cards shadow, no hamburger, no infinite scroll"). Held from 9–10 pending blind visual review, and because the RTL implementation leans on `dir="rtl"` inheritance with zero logical properties (the failed check), which is exactly the kind of shortcut the rubric's "RTL is flawless" bar wants proven visually.
+UNVERIFIED_CLAIMS: 60fps smoothness of mousemove perspective tilt (not measurable statically)
+RED_FLAGS: auto-check failure: no logical properties despite the prompt requiring direction-aware chrome

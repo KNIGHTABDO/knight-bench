@@ -1,0 +1,6 @@
+SCORE: 9 (PROVISIONAL)
+AUTO_CHECKS: 4/4, failures: none
+BAND_JUSTIFICATION:
+All six questions are substantively correct with exact French terminology (sus-décalage, IVA, ICP/angioplastie primaire, double anti-agrégation plaquettaire), the 120-minute threshold is explicit and correctly framed from "premier contact médical (FMC)", and the O2-only-if-hypoxic nuance is present ("O2 seulement si SpO2 <90%"). Several 9–10 fine touches land: right-sided and posterior leads in Q2 ("ECG 12 dérivations + dérivations droites et postérieures si besoin"), nitrate contraindication awareness ("pas de contre-indication (I inf, VD, prise de PDE5i)"), and thrombolysis fallback logic with the <12h window. Held at 9 rather than 10 because no explicit uncertainty flags are used where doses vary by source (e.g. aspirine "75-250 mg IV" stated flatly) and Q6 lists more than three complications rather than the three requested. No confidently wrong number found against the reference key — human verification against collèges/ESC/HAS remains required before FINAL.
+UNVERIFIED_CLAIMS: "pic circadien de thrombose" as an argument; exact bolus ranges (HNF 70-100 UI/kg max 5000 UI) to be checked against local protocol
+RED_FLAGS: none

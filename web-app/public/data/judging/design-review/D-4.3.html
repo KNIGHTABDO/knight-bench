@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SIRAJ — لوحة</title>
+<style>
+:root{
+--bg:#0F0F10;--surface:#1A1A1E;--surface2:#25251F;--ink:#EAE2D0;
+--ink-soft:#A8A29A;--ink-faint:#6E6B66;--line:#2A2A26;--noor:#D9A441;
+--noor-soft:#332A14;--focus:#E6B85C;
+--display:'Amiri','Noto Naskh Arabic','Traditional Arabic',serif;
+--text:'Noto Naskh Arabic','IBM Plex Sans Arabic',serif;
+--ui:'IBM Plex Sans Arabic','Noto Sans Arabic',system-ui,sans-serif;
+--xs:4px;--sm:8px;--md:12px;--lg:16px;--xl:24px;--2xl:32px;--3xl:48px;
+--r-sm:4px;--r-md:8px;--r-paper:14px;
+--micro:160ms;--midad:320ms;--kashf:640ms;
+--em: cubic-bezier(0.42,0,0.18,1);--ew: cubic-bezier(0.16,1,0.3,1);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--text);
+display:grid;place-items:center;padding:var(--xl)}
+.paper{
+width:min(720px,94vw);background:linear-gradient(180deg,var(--surface2),var(--surface));
+border:1px solid var(--line);border-radius:var(--r-paper);
+box-shadow:inset 0 0 0 1px var(--line), inset 0 0 80px var(--noor-soft), 0 24px 80px #0008;
+padding:var(--3xl) var(--2xl);position:relative;
+animation:kashf var(--kashf) var(--ew) both}
+.paper:before{content:'';position:absolute;inset:0;border-radius:inherit;
+box-shadow:inset 0 1px 0 0 var(--line), inset 0 -60px 100px -10px var(--noor-soft);
+pointer-events:none;opacity:.9}
+.top{display:flex;justify-content:space-between;align-items:center;
+font-family:var(--ui);font-size:11px;color:var(--ink-faint);letter-spacing:.08em}
+.top b{font-weight:500;color:var(--ink-soft)}
+.lamp-ring{width:18px;height:18px;border:1.5px solid var(--noor);border-radius:50%;
+box-shadow:0 0 14px var(--noor-soft), inset 0 0 8px var(--noor-soft)}
+h1{font-family:var(--display);font-weight:400;font-size:39px;line-height:1.2;
+margin:var(--xl) 0 var(--md);letter-spacing:.015em}
+.meta{font-family:var(--ui);font-size:12.5px;color:var(--ink-faint);margin-bottom:var(--2xl)}
+.meta span{color:var(--ink-soft)}
+.poem{font-size:20px;line-height:2.1}
+.poem p{margin:0 0 var(--lg)}
+.poem .ink{animation:hibr var(--midad) var(--em) both}
+.poem i{font-style:normal;color:var(--ink-faint)}
+.latin{font-family:var(--ui);font-size:90%;vertical-align:middle;opacity:.8;letter-spacing:.02em}
+.cursor{display:inline-block;width:1px;height:1.2em;background:var(--ink);
+vertical-align:-0.15em;margin-inline:2px;animation:sukun var(--kashf) cubic-bezier(0.4,0,0.6,1) infinite alternate}
+.palette{position:absolute;left:50%;top:56%;transform:translate(-50%,-50%);
+width:min(460px,92%);background:var(--surface);border:1px solid var(--line);
+border-radius:12px;box-shadow:0 0 0 1px var(--line), 0 0 0 6px var(--noor-soft), 0 20px 60px #0009;
+overflow:hidden;animation:kashfUp var(--kashf) var(--ew) .05s both}
+.phead{display:flex;gap:10px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line);font-family:var(--ui);font-size:12.5px;color:var(--ink-faint)}
+.dot{width:28px;height:28px;background:var(--surface2);border:1px solid var(--line);
+border-radius:8px;display:grid;place-items:center;color:var(--noor);font-size:12px}
+.phead b{color:var(--ink);font-weight:500;font-size:14px}
+.list{padding:8px}
+.row{display:flex;justify-content:space-between;align-items:center;
+padding:10px 12px;border-radius:8px;font-family:var(--ui);font-size:13px;color:var(--ink-soft)}
+.row.active{background:var(--surface2);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.row.active .hint{color:var(--ink-faint)}
+.k{display:flex;gap:6px;align-items:center}
+.k kbd{font-family:var(--ui);font-size:11px;border:1px solid var(--line);
+background:var(--surface);border-bottom-width:2px;border-radius:4px;padding:2px 5px;color:var(--ink-faint)}
+.hint{font-size:11px;color:var(--ink-faint)}
+.foot{padding:10px 14px;border-top:1px solid var(--line);font-family:var(--ui);
+font-size:11px;color:var(--ink-faint);display:flex;justify-content:space-between}
+.hashiya{position:absolute;left:-86px;top:260px;writing-mode:vertical-rl;
+font-family:var(--ui);font-size:11px;color:var(--ink-faint);letter-spacing:.12em;opacity:.7}
+@keyframes hibr{from{opacity:.85;color:var(--ink-faint)}to{opacity:1;color:var(--ink)}}
+@keyframes kashf{from{transform:translateY(6px);box-shadow:inset 0 0 0 1px var(--line)} to{transform:none}}
+@keyframes kashfUp{from{opacity:0;transform:translate(-50%,-46%)}to{opacity:1;transform:translate(-50%,-50%)}}
+@keyframes sukun{from{height:1.2em;opacity:1}to{height:1.45em;opacity:.6}}
+@media(max-width:900px){.hashiya{display:none}.paper{padding:28px 20px}}
+</style>
+<div class="paper">
+<div class="hashiya">الحاشية — لا متن</div>
+<div class="top"><b>سراج / sirāj.local</b><div class="lamp-ring"></div><span>ليْل • 12 ورقة • محلي</span></div>
+<h1>بيتٌ لا يُضاء يُنسى</h1>
+<div class="meta"><span>وزن:</span> طويل • <span>قافية:</span> ياء • <span class="latin">local-only</span></div>
+<div class="poem">
+<p class="ink">إذا جنّ <i>اللّيلُ</i> واشتهى الورقُ ظلاً<br>تركتُ السراجَ <span class="cursor"></span> يدنو ولا يتكلّمُ</p>
+<p class="ink" style="animation-delay:.06s">لا يخطّ، بل يُري الحِبرَ أينَ ثَقُل<br>ولا يَزيد، بل يَنقصُ الظُلمةَ عِلْمُ</p>
+<p class="ink" style="animation-delay:.12s">هنا لا سؤالَ، هنا لا جوابَ سريعْ<br>هنا حاشيةٌ تحفظُ ما يُفهمُ</p>
+</div>
+<div class="palette" role="dialog" aria-label="حاشية الأوامر">
+<div class="phead"><div class="dot">◐</div><b>الحاشية</b><span style="margin-inline:auto">— أين أقرّب الضوء؟</span><span>⌘K</span></div>
+<div class="list">
+<div class="row active"><span>اشرح وزن هذا الشطر</span><span class="k"><kbd>↵</kbd><span class="hint">مُداراة</span></span></div>
+<div class="row"><span>أصل كلمة: يجفّ</span><span class="hint">لسان • ٣ جذور</span></div>
+<div class="row"><span>زن الصدر والعجز</span><span class="hint">تفعيلة</span></div>
+<div class="row"><span>قارن بنسخة ٢ - أمس</span><span class="hint">diff ورق</span></div>
+<div class="row"><span>احفظ كهامش، لا تُغيّر المتن</span><span class="k"><kbd>⌘</kbd><kbd>S</kbd></span></div>
+</div>
+<div class="foot"><span>الذكاء لا يكتب — يضيء فقط</span><span><span class="latin" style="font-size:11px">no cloud</span> • نور ساكن</span></div>
+</div>
+</div>
+</html>
+

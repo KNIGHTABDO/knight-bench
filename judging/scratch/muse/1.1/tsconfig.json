@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": false,
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": { "@/*": ["./*"] },
+    "lib": ["ES2021", "DOM", "DOM.Iterable"]
+  },
+  "exclude": ["node_modules"],
+  "files": [
+    "global.d.ts",
+    "lib/db.ts",
+    "lib/profiles.ts",
+    "lib/progressStore.ts",
+    "hooks/usePlayer.ts",
+    "hooks/useContinueWatching.ts",
+    "components/ContinueWatching.tsx",
+    "components/Player.tsx",
+    "components/ProfileSwitcher.tsx",
+    "app/page.tsx",
+    "app/watch/[id]/page.tsx"
+  ]
+}

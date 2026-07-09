@@ -20,14 +20,14 @@ export interface Category {
   name: string;
   weightPercent: number;
   description: string;
-  winner: JudgedModelId;
+  winner: ModelId;
 }
 
-/** Models with judged scores in the report tables. */
-export type JudgedModelId = "gemini" | "grok" | "sonnet";
+/** All models with saved results. As of the muse-spark-1.1 judging cycle, all are judged. */
+export type ModelId = "gemini" | "grok" | "sonnet" | "muse";
 
-/** All models with saved results (judged or raw-run-only). */
-export type ModelId = JudgedModelId | "muse";
+/** Retained for callers that distinguished judged vs raw-run models. */
+export type JudgedModelId = ModelId;
 
 export interface ModelInfo {
   id: ModelId;
@@ -55,6 +55,7 @@ export interface MasterScoreRow {
   gemini: TaskScore;
   grok: TaskScore;
   sonnet: TaskScore;
+  muse: TaskScore;
 }
 
 export interface CategoryScoreRow {
@@ -62,4 +63,5 @@ export interface CategoryScoreRow {
   gemini: number;
   grok: number;
   sonnet: number;
+  muse: number;
 }

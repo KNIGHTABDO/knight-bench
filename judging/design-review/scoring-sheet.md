@@ -13,3 +13,9 @@ Blind IDs only. Mapping is sealed in `mapping-sealed.md`.
 | C-4.1.html | no | no | yes | no | Inter mentioned; external URL |
 | C-4.2.html | no | no | yes | no | Inter mentioned |
 | C-4.3.html | no | no | yes | no | Inter mentioned; external URL |
+| D-4.1.html | no | no | no | no | none |
+| D-4.2.html | no | no | no | no | none |
+| D-4.3.html | no | no | no | no | none |
+| E-4.1.html | no | no | yes | no | 857 lines; no external URL |
+| E-4.2.html | no | no | no | no | React state setter inside rAF; RTL progress check failed |
+| E-4.3.html | no | no | no | no | no external URL |

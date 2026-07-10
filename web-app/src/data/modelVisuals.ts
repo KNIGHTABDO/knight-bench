@@ -5,6 +5,7 @@ export const modelColorVar: Record<ModelId, string> = {
   grok: "var(--series-grok)",
   sonnet: "var(--series-sonnet)",
   muse: "var(--series-muse)",
+  gpt55: "var(--series-gpt55)",
 };
 
 export const modelShortName: Record<ModelId, string> = {
@@ -12,7 +13,8 @@ export const modelShortName: Record<ModelId, string> = {
   grok: "Grok 4.5",
   sonnet: "Claude Sonnet 5",
   muse: "Muse Spark 1.1",
+  gpt55: "GPT-5.5",
 };
 
 /** Drives score tables, charts, and per-task evidence tabs. */
-export const modelOrder: JudgedModelId[] = ["gemini", "grok", "sonnet", "muse"];
+export const modelOrder: JudgedModelId[] = ["gemini", "grok", "sonnet", "muse", "gpt55"];

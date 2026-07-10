@@ -1,64 +1,68 @@
 # KNIGHT-BENCH v1 Judge Report
 
-Conflict statement: The original three models (Gemini 3.5 Flash, Grok 4.5, Claude Sonnet 5) were judged by GPT-5-based Codex. Muse Spark 1.1 was judged separately by Claude Fable 5. Conflict of interest to weigh: the muse-spark-1.1 run log shows anomalies (workers writing to claude-* folders) that suggest a possible Claude-family model, and a Claude-family judge scored it first among four. Every muse score >=9 was tied to a mechanical observation this session (compile/run/grep/word-count), no score was raised on an unverified claim, and all Cat 2 / Cat 4 / 5.3 / 8.2 / 9.3 medical and design scores remain PROVISIONAL pending owner ratification. Treat muse's first place as provisional until an independent judge re-scores it.
+Conflict statement: GPT-5.5 was judged by GPT-5-based Codex, the same model family as the subject, so its result is conflict-provisional pending an independent re-score. Muse Spark 1.1 may also share its Claude-family judge; its first place remains provisional. All GPT-5.5 scores >=9 are tied to a compile, run, grep, word count, or scripted constraint result, and medical/design tasks remain owner-provisional.
 
-Scope note: the user prompt and section 10 mention 27 tasks, but `knight-bench-v1.md` contains 26 task headings and each result folder contains 26 `task-*.md` files. Four models are now scored (104 model-task outputs): the original three plus Muse Spark 1.1. No phantom 27th task was invented.
+Scope note: the benchmark defines 26 task headings, not a phantom 27th task. Five models are now scored (130 model-task outputs): Gemini, Grok, Sonnet, Muse, and GPT-5.5.
 
 ## 1. Executive Verdict
 
-Overall winner on all provisional+final scores: **Muse Spark 1.1** (8.283/10), ahead of Grok 4.5 (7.767), Claude Sonnet 5 (7.529) and Gemini 3.5 Flash (7.208). Muse's lead rests partly on provisional medical (Cat 2) and design (Cat 4) scores still awaiting owner ratification.
+Overall winner on all provisional+final scores: **Muse Spark 1.1** (8.283/10), ahead of GPT-5.5 (7.796), Grok 4.5 (7.767), Claude Sonnet 5 (7.529), and Gemini 3.5 Flash (7.208). GPT-5.5 is conflict-provisional; Muse also retains owner-pending medical/design scores.
 
 Winner per category: 1 Agentic coding: Muse Spark 1.1; 2 Medical reasoning (FR/EDN): Muse Spark 1.1; 3 RTL/Arabic engineering: Claude Sonnet 5; 4 Frontend design taste: Muse Spark 1.1; 5 Medical RAG/retrieval: Grok 4.5; 6 Streaming/media infra: Claude Sonnet 5; 7 Agent orchestration: Muse Spark 1.1; 8 Long-context + IF: Grok 4.5; 9 Cost/latency: Muse Spark 1.1.
 
-Personality read grounded in outputs: Gemini is concise and usually functional but more likely to miss one hard engineering edge; Grok is expansive, systems-minded, and strongest on exhaustive traps, but sometimes violates budgets; Sonnet is careful and high-taste on reasoning/design, but had several format/runnability misses; Muse is the most consistent all-rounder this cycle — it compiles cleanly, respects hard budgets (9.2 at 14 lines, 8.1 a scripted 50/50), and pre-decides risky calls, though it leaves elided test suites in 5.2/6.2 and its provisional medical/design scores are not yet owner-ratified.
+Personality read grounded in outputs: GPT-5.5 is strong on Arabic engineering, HLS diagnosis, citation verification, and migration critique, but its supplied FTS5 test suite fails and it loses hard-constraint points in 8.1 and 9.2. Existing model descriptions remain unchanged; all provisional qualifications apply.
 
 ## 2. Master Score Table
 
-| Task | Gemini | Auto | Grok | Auto | Sonnet | Auto | Muse | Auto |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| 1.1 | 8 FINAL | 6/6 | 8 FINAL | 5/6 | 6 FINAL | 4/6 | 9 FINAL | 6/6 |
-| 1.2 | 8 FINAL | 4/5 | 8 FINAL | 3/5 | 9 FINAL | 5/5 | 8 FINAL | 5/5 |
-| 1.3 | 6 FINAL | 5/7 | 6 FINAL | 5/7 | 4 FINAL | 4/7 | 6 FINAL | 6/6 |
-| 2.1 | 8 PROVISIONAL | 4/4 | 7 PROVISIONAL | 4/4 | 8 PROVISIONAL | 4/4 | 9 PROVISIONAL | 4/4 |
-| 2.2 | 9 PROVISIONAL | 3/4 | 8 PROVISIONAL | 3/4 | 8 PROVISIONAL | 3/4 | 9 PROVISIONAL | 4/4 |
-| 2.3 | 8 PROVISIONAL | 3/3 | 6 PROVISIONAL | 3/3 | 9 PROVISIONAL | 2/3 | 9 PROVISIONAL | 3/3 |
-| 3.1 | 6 FINAL | 3/4 | 9 FINAL | 4/4 | 9 FINAL | 4/4 | 8 FINAL | 4/4 |
-| 3.2 | 7 FINAL | 2/3 | 9 FINAL | 3/3 | 9 FINAL | 3/3 | 9 FINAL | 3/3 |
-| 3.3 | 7 FINAL | 3/4 | 9 FINAL | 4/4 | 10 FINAL | 4/4 | 10 FINAL | 4/4 |
-| 4.1 | 4 PROVISIONAL | 2/5 | 5 PROVISIONAL | 2/5 | 8 PROVISIONAL | 4/5 | 8 PROVISIONAL | 4/5 |
-| 4.2 | 6 PROVISIONAL | 4/5 | 8 PROVISIONAL | 5/5 | 8 PROVISIONAL | 5/5 | 6 PROVISIONAL | 3/4 |
-| 4.3 | 6 PROVISIONAL | 4/5 | 7 PROVISIONAL | 4/5 | 5 PROVISIONAL | 3/5 | 9 PROVISIONAL | 4/5 |
-| 5.1 | 8 FINAL | 4/4 | 9 FINAL | 3/4 | 9 FINAL | 3/4 | 9 FINAL | 4/4 |
-| 5.2 | 8 FINAL | 5/5 | 10 FINAL | 5/5 | 4 FINAL | 4/5 | 6 FINAL | 3/5 |
-| 5.3 | 8 PROVISIONAL | 5/5 | 9 PROVISIONAL | 5/5 | 9 PROVISIONAL | 5/5 | 8 PROVISIONAL | 4/4 |
-| 6.1 | 5 FINAL | 2/4 | 5 FINAL | 2/4 | 8 FINAL | 3/4 | 8 FINAL | 4/4 |
-| 6.2 | 8 FINAL | 5/5 | 8 FINAL | 5/5 | 9 FINAL | 5/5 | 8 FINAL | 3/4 |
-| 6.3 | 7 FINAL | 4/5 | 8 FINAL | 4/5 | 8 FINAL | 4/5 | 8 FINAL | 5/5 |
-| 7.1 | 5 FINAL | 3/4 | 4 FINAL | 2/4 | 4 FINAL | 2/4 | 9 FINAL | 4/4 |
-| 7.2 | 8 FINAL | 4/4 | 10 FINAL | 4/4 | 8 FINAL | 4/4 | 8 FINAL | 4/4 |
-| 7.3 | 8 FINAL | 4/4 | 10 FINAL | 4/4 | 10 FINAL | 4/4 | 10 FINAL | 4/4 |
-| 8.1 | 6 FINAL | 45/50 | 10 FINAL | 50/50 | 5 FINAL | 44/50 | 10 FINAL | 50/50 |
-| 8.2 | 8 PROVISIONAL | 3/4 | 10 PROVISIONAL | 3/4 | 8 PROVISIONAL | 4/4 | 8 PROVISIONAL | 3/3 |
-| 9.1 | 8 FINAL | 3/3 | 9 FINAL | 3/3 | 8 FINAL | 2/3 | 9 FINAL | 3/3 |
-| 9.2 | 8 FINAL | 3/3 | 6 FINAL | 2/3 | 8 FINAL | 3/3 | 9 FINAL | 5/5 |
-| 9.3 | 8 FINAL | 4/4 | 9 FINAL | 4/4 | 8 FINAL | 4/4 | 9 PROVISIONAL | 4/4 |
+| Task | Gemini | Auto | Grok | Auto | Sonnet | Auto | Muse | Auto | GPT-5.5 | Auto |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1.1 | 8 FINAL | 6/6 | 8 FINAL | 5/6 | 6 FINAL | 4/6 | 9 FINAL | 6/6 | 6 FINAL | 4/6 |
+| 1.2 | 8 FINAL | 4/5 | 8 FINAL | 3/5 | 9 FINAL | 5/5 | 8 FINAL | 5/5 | 9 FINAL | 5/5 |
+| 1.3 | 6 FINAL | 5/7 | 6 FINAL | 5/7 | 4 FINAL | 4/7 | 6 FINAL | 6/6 | 8 FINAL | 7/7 |
+| 2.1 | 8 PROVISIONAL | 4/4 | 7 PROVISIONAL | 4/4 | 8 PROVISIONAL | 4/4 | 9 PROVISIONAL | 4/4 | 9 PROVISIONAL | 4/4 |
+| 2.2 | 9 PROVISIONAL | 3/4 | 8 PROVISIONAL | 3/4 | 8 PROVISIONAL | 3/4 | 9 PROVISIONAL | 4/4 | 7 PROVISIONAL | 3/4 |
+| 2.3 | 8 PROVISIONAL | 3/3 | 6 PROVISIONAL | 3/3 | 9 PROVISIONAL | 2/3 | 9 PROVISIONAL | 3/3 | 8 PROVISIONAL | 3/3 |
+| 3.1 | 6 FINAL | 3/4 | 9 FINAL | 4/4 | 9 FINAL | 4/4 | 8 FINAL | 4/4 | 8 FINAL | 4/4 |
+| 3.2 | 7 FINAL | 2/3 | 9 FINAL | 3/3 | 9 FINAL | 3/3 | 9 FINAL | 3/3 | 9 FINAL | 3/3 |
+| 3.3 | 7 FINAL | 3/4 | 9 FINAL | 4/4 | 10 FINAL | 4/4 | 10 FINAL | 4/4 | 10 FINAL | 4/4 |
+| 4.1 | 4 PROVISIONAL | 2/5 | 5 PROVISIONAL | 2/5 | 8 PROVISIONAL | 4/5 | 8 PROVISIONAL | 4/5 | 8 PROVISIONAL | 4/5 |
+| 4.2 | 6 PROVISIONAL | 4/5 | 8 PROVISIONAL | 5/5 | 8 PROVISIONAL | 5/5 | 6 PROVISIONAL | 3/4 | 6 PROVISIONAL | 3/5 |
+| 4.3 | 6 PROVISIONAL | 4/5 | 7 PROVISIONAL | 4/5 | 5 PROVISIONAL | 3/5 | 9 PROVISIONAL | 4/5 | 9 PROVISIONAL | 5/5 |
+| 5.1 | 8 FINAL | 4/4 | 9 FINAL | 3/4 | 9 FINAL | 3/4 | 9 FINAL | 4/4 | 8 FINAL | 4/4 |
+| 5.2 | 8 FINAL | 5/5 | 10 FINAL | 5/5 | 4 FINAL | 4/5 | 6 FINAL | 3/5 | 2 FINAL | 4/5 |
+| 5.3 | 8 PROVISIONAL | 5/5 | 9 PROVISIONAL | 5/5 | 9 PROVISIONAL | 5/5 | 8 PROVISIONAL | 4/4 | 10 PROVISIONAL | 5/5 |
+| 6.1 | 5 FINAL | 2/4 | 5 FINAL | 2/4 | 8 FINAL | 3/4 | 8 FINAL | 4/4 | 8 FINAL | 4/4 |
+| 6.2 | 8 FINAL | 5/5 | 8 FINAL | 5/5 | 9 FINAL | 5/5 | 8 FINAL | 3/4 | 8 FINAL | 5/5 |
+| 6.3 | 7 FINAL | 4/5 | 8 FINAL | 4/5 | 8 FINAL | 4/5 | 8 FINAL | 5/5 | 8 FINAL | 5/5 |
+| 7.1 | 5 FINAL | 3/4 | 4 FINAL | 2/4 | 4 FINAL | 2/4 | 9 FINAL | 4/4 | 6 FINAL | 3/4 |
+| 7.2 | 8 FINAL | 4/4 | 10 FINAL | 4/4 | 8 FINAL | 4/4 | 8 FINAL | 4/4 | 9 FINAL | 4/4 |
+| 7.3 | 8 FINAL | 4/4 | 10 FINAL | 4/4 | 10 FINAL | 4/4 | 10 FINAL | 4/4 | 10 FINAL | 4/4 |
+| 8.1 | 6 FINAL | 45/50 | 10 FINAL | 50/50 | 5 FINAL | 44/50 | 10 FINAL | 50/50 | 8 FINAL | 49/50 |
+| 8.2 | 8 PROVISIONAL | 3/4 | 10 PROVISIONAL | 3/4 | 8 PROVISIONAL | 4/4 | 8 PROVISIONAL | 3/3 | 7 PROVISIONAL | 3/4 |
+| 9.1 | 8 FINAL | 3/3 | 9 FINAL | 3/3 | 8 FINAL | 2/3 | 9 FINAL | 3/3 | 8 FINAL | 3/3 |
+| 9.2 | 8 FINAL | 3/3 | 6 FINAL | 2/3 | 8 FINAL | 3/3 | 9 FINAL | 5/5 | 6 FINAL | 4/5 |
+| 9.3 | 8 FINAL | 4/4 | 9 FINAL | 4/4 | 8 FINAL | 4/4 | 9 PROVISIONAL | 4/4 | 9 PROVISIONAL | 4/4 |
 
 ## 3. Category Scores
 
-| Category | Weight | Gemini | Grok | Sonnet | Muse |
-|---|---:|---:|---:|---:|---:|
-| 1. Agentic coding | 20% | 7.33 | 7.33 | 6.33 | 7.67 |
-| 2. Medical reasoning (FR/EDN) | 20% | 8.33 | 7.00 | 8.33 | 9.00 |
-| 3. RTL/Arabic engineering | 10% | 6.67 | 9.00 | 9.33 | 9.00 |
-| 4. Frontend design taste | 15% | 5.33 | 6.67 | 7.00 | 7.67 |
-| 5. Medical RAG/retrieval | 15% | 8.00 | 9.33 | 7.33 | 7.67 |
-| 6. Streaming/media infra | 5% | 6.67 | 7.00 | 8.33 | 8.00 |
-| 7. Agent orchestration | 10% | 7.00 | 8.00 | 7.33 | 9.00 |
-| 8. Long-context + IF | 2.5% | 7.00 | 10.00 | 6.50 | 9.00 |
-| 9. Cost/latency | 2.5% | 8.00 | 8.00 | 8.00 | 9.00 |
-| **Weighted total (all scores)** | 100% | 7.208 | 7.767 | 7.529 | 8.283 |
-| **FINAL-only normalized** | 58.75% settled | 7.220 | 8.156 | 7.255 | 8.216 |
-| **Settled contribution to 0-10 total** | max 5.875 | 4.242 | 4.792 | 4.263 | 4.758 |
+| Category | Weight | Gemini | Grok | Sonnet | Muse | GPT-5.5 |
+|---|---:|---:|---:|---:|---:|---:|
+| 1. Agentic coding | 20% | 7.33 | 7.33 | 6.33 | 7.67 | 7.67 |
+| 2. Medical reasoning (FR/EDN) | 20% | 8.33 | 7.00 | 8.33 | 9.00 | 8.00 |
+| 3. RTL/Arabic engineering | 10% | 6.67 | 9.00 | 9.33 | 9.00 | 9.00 |
+| 4. Frontend design taste | 15% | 5.33 | 6.67 | 7.00 | 7.67 | 7.67 |
+| 5. Medical RAG/retrieval | 15% | 8.00 | 9.33 | 7.33 | 7.67 | 6.67 |
+| 6. Streaming/media infra | 5% | 6.67 | 7.00 | 8.33 | 8.00 | 8.00 |
+| 7. Agent orchestration | 10% | 7.00 | 8.00 | 7.33 | 9.00 | 8.33 |
+| 8. Long-context + IF | 2.5% | 7.00 | 10.00 | 6.50 | 9.00 | 7.50 |
+| 9. Cost/latency | 2.5% | 8.00 | 8.00 | 8.00 | 9.00 | 7.67 |
+| **Weighted total (all scores)** | 100% | 7.208 | 7.767 | 7.529 | 8.283 | 7.796 |
+| **FINAL-only normalized** | 58.75% settled | 7.220 | 8.156 | 7.255 | 8.216 | 7.568 |
+| **Settled contribution to 0-10 total** | max 5.875 | 4.242 | 4.792 | 4.263 | 4.758 | 4.383 |
+
+## GPT-5.5 Addendum
+
+GPT-5.5 ranks second on the current all-score total. Its final-task result is 7.568 normalized, and its provisional swing is 4.383-8.592. It ties Muse in Categories 1 and 4, but no category winner changes under the existing tie policy. The Python FTS5 implementation is the decisive weakness: all 12 supplied tests fail with a malformed-database error.
 
 ## 4. Head-To-Head Deep Dives
 
@@ -72,7 +76,7 @@ All four identify SCA ST+/IVA and the 120-minute ICP threshold. Grok's 2.1 is ot
 Gemini shows real bidi knowledge but task 3.1 does not compile and 3.2 misses explicit `font-synthesis`. Grok and Sonnet both pass 3.1 grep+compile and give strong typography answers; Sonnet's Quranic text design is the strongest, explicitly saying CSS kashida is not reliable and preserving display Uthmani text separate from normalized FTS5 text. Muse passes 3.1 compile+grep cleanly with zero physical CSS props and handles 3.3 diacritics stripping with Unicode-savvy regex (0620–06FF range), scoring a perfect 10 matching Sonnet.
 
 **Category 4 — Design (Provisional)**  
-Design files are blind-packed under `judging/design-review/` as A/B/C; the mapping is sealed and not repeated here. Provisionally, Sonnet has the best 4.1 art direction, while Grok/Sonnet both pass 4.2 mechanics. Gemini's 4.1 fails line count, offline/external, and RTL-root checks; Sonnet's 4.3 loses ground because the concept exceeds 120 words and demo hex colors are outside tokens. Muse's 4.1 and 4.3 pass mechanical checks strongly; its 4.2 is weaker with fewer auto-checks passed.
+Design files are blind-packed under `judging/design-review/` as A/B/C/D/E; the mapping is sealed and not repeated here. GPT-5.5's 4.1 has distinctive cinematic direction but exceeds the 600-line cap, its 4.2 calls React state from rAF, and its 4.3 is a strong coherent identity system. All category-4 values remain owner-provisional.
 
 **Category 5 — Medical RAG**  
 Grok wins on 5.2: the extra `medical_fts.py` and `test_medical_fts.py` ran 15/15 OK, including IRC ambiguity and ligature tests. Gemini also ran Python tests successfully (8/8) and has a solid 5.1 pipeline. Sonnet's 5.1 is strong, but 5.2 imports `vitest` and fails `node --test`, which is fatal for a runnable-code task. Muse's 5.1 and 5.3 are strong (9 and 8 respectively), but 5.2 drops to 6 with elided test suites. In 5.3 all four catch the planted dose, ivabradine, antipneumococcal vaccine, and fluid restriction.
@@ -107,7 +111,7 @@ All four run logs report tokens/cost as `N/A` or `n/a`; Sonnet's run log also la
 
 ## 8. Anomalies & Integrity
 
-- Benchmark task-count inconsistency: section 10 says total cost across 27 tasks and category means over 3 tasks, but the actual file defines 26 tasks because category 8 has only 8.1 and 8.2. Scorecards therefore total 104 files (4 models × 26 tasks), not 108.
+- Benchmark task-count inconsistency: section 10 says total cost across 27 tasks and category means over 3 tasks, but the actual file defines 26 tasks because category 8 has only 8.1 and 8.2. Scorecards therefore total 130 files (5 models × 26 tasks), not 135.
 - Gemini: temperature default/unavailable marked †; token counts N/A throughout.
 - Grok: task 2.2 run log notes subagent exit code 1 / 429 after write; task 5.2 produced extra `medical_fts.py` and `test_medical_fts.py`, verified with `py -3 -m unittest test_medical_fts -v` and 15 tests OK.
 - Sonnet: run log notes a task 3.1 scratchpad deviation, 7.1 word-count anomaly, and 9.2 markdown fences. No evidence in saved results that a subagent left the benchmark folder, except the self-reported scratchpad deviation.
@@ -116,7 +120,8 @@ All four run logs report tokens/cost as `N/A` or `n/a`; Sonnet's run log also la
 ## 9. Owner Action List
 
 1. Open `judging/human-review/medical-review.md` and ratify all category 2, 5.3, and 8.2 provisional verdicts against current course/HAS/SPILF references.
-2. Open `judging/design-review/scoring-sheet.md` and the blind `A/B/C-4.x.html` files; judge category 4 blind. Do not open `mapping-sealed.md` until after scoring.
+2. Open `judging/design-review/scoring-sheet.md` and the blind `A/B/C/D/E-4.x.html` files; judge category 4 blind. Do not open `mapping-sealed.md` until after scoring.
+3. Obtain an independent non-GPT-family re-score for GPT-5.5 before treating its total or rank as settled.
 3. After owner scores provisional items, replace provisional values in `judging/scorecards/` or the master table and recompute totals.
 
 | Model | Current all-score total | If all provisional set to 0 | If all provisional set to 10 | Provisional swing range |
@@ -125,3 +130,4 @@ All four run logs report tokens/cost as `N/A` or `n/a`; Sonnet's run log also la
 | Grok 4.5 | 7.767 | 4.792 | 8.917 | 4.792-8.917 |
 | Claude Sonnet 5 | 7.529 | 4.263 | 8.388 | 4.263-8.388 |
 | Muse Spark 1.1 | 8.283 | 4.758 | 8.967 | 4.758-8.967 |
+| GPT-5.5 | 7.796 | 4.383 | 8.592 | 4.383-8.592 |

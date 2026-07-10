@@ -51,6 +51,20 @@ export const models: ModelInfo[] = [
     provisionalIfZero: 4.758,
     provisionalIfTen: 8.967,
   },
+  {
+    // Judged 2026-07-10 (26/26). The judge is GPT-family and the subject is GPT-5.5,
+    // so this entire result remains conflict-provisional pending an independent re-score.
+    id: "gpt55",
+    name: "GPT-5.5",
+    fullName: "GPT-5.5",
+    resultsDir: "gpt-5.5-results",
+    judged: true,
+    weightedTotal: 7.796,
+    finalOnlyNormalized: 7.568,
+    settledContribution: 4.383,
+    provisionalIfZero: 4.383,
+    provisionalIfTen: 8.592,
+  },
 ];
 
 export const judgedModels = models.filter((m) => m.judged);
@@ -60,6 +74,7 @@ export const modelById = (id: string) => models.find((m) => m.id === id)!;
 /** All models under test in KNIGHT-BENCH v1, per the spec — not all were run this cycle. */
 export const modelsUnderTestV1 = [
   "Claude Fable 5",
+  "GPT-5.5",
   "GPT-5.6",
   "Gemini 3.5 Flash",
   "Grok 4.5",

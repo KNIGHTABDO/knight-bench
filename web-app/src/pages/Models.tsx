@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { models, modelsUnderTestV1 } from "../data/models";
+import { judgedModels, models, modelsUnderTestV1 } from "../data/models";
 import { modelColorVar } from "../data/modelVisuals";
 import { Card, Section } from "../components/ui";
 import { WeightedTotalBars } from "../components/WeightedTotalBars";
@@ -7,13 +7,13 @@ import { WeightedTotalBars } from "../components/WeightedTotalBars";
 export default function Models() {
   return (
     <div className="flex flex-col gap-10">
-      <Section eyebrow="This run" title="4 models judged, 104 outputs scored">
+      <Section eyebrow="This run" title={`${judgedModels.length} models judged, ${judgedModels.length * 26} outputs scored`}>
         <Card>
           <WeightedTotalBars />
         </Card>
       </Section>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {models.map((m) => (
           <Link key={m.id} to={`/models/${m.id}`} className="glass rounded-[var(--radius-lg)] p-5 flex flex-col gap-3 transition-transform hover:-translate-y-0.5">
             <span className="w-3 h-3 rounded-full" style={{ background: modelColorVar[m.id] }} />
@@ -31,7 +31,7 @@ export default function Models() {
       <Section eyebrow="From the spec" title="All models under test in KNIGHT-BENCH v1">
         <Card tint>
           <p className="text-sm mb-3" style={{ color: "var(--ink-secondary)" }}>
-            Not every model listed in the spec has been run yet in this cycle — the four above have saved, judged results. Muse Spark 1.1's Cat 2 / Cat 4 / medical scores are provisional pending owner ratification.
+            Not every model listed in the spec has been run yet in this cycle — the models above have saved, judged results. Medical and design scores remain owner-provisional, and the GPT-5.5 result is family-conflict provisional pending an independent re-score.
           </p>
           <div className="flex flex-wrap gap-2">
             {modelsUnderTestV1.map((name) => (

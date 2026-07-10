@@ -16,6 +16,8 @@
 
 If you violate identity rules, the entire run is invalid.
 
+**Two modes, one file.** Everything in §0–§21 is **EXECUTION** (produce raw answers as orchestrator). When the human asks you to **judge / score / "update everything"** for a run that already exists, you switch to **JUDGE** mode — see **§22 (FULL JUDGE CYCLE)**. In judge mode the identity rule above flips: you DO read the rubrics and you DO assign scores, but you still never edit a raw answer or re-run the model.
+
 ---
 
 ## 0. Absolute contamination rules (read twice)
@@ -68,10 +70,12 @@ KNIGHT-BENCH/
     gemini-3.5-flash-results/
     grok-4.5-results/
     sonnet-5-results/
+    muse-spark-1.1-results/
   judging/                    ← SCORING / EVIDENCE (NOT for model under test; usually human later)
-    evidence/
-    scorecards/
-    design-review/
+    evidence/<model>/<id>-checks.md   ← mechanical pass/fail per task
+    scorecards/<model>/task-<id>.md   ← SCORE + band justification per task
+    design-review/                    ← blind HTML/source packets for 4.x
+    scratch/<model>/<id>/             ← compile/run scaffolds the JUDGE builds
     human-review/
     tools/
       verify.mjs
@@ -93,11 +97,12 @@ KNIGHT-BENCH/
 
 Existing completed raw-result folders (as of this writing):
 
-| Display name        | Folder under `results/`           | Web model id |
-|---------------------|-----------------------------------|--------------|
-| Gemini 3.5 Flash    | `gemini-3.5-flash-results`        | `gemini`     |
-| Grok 4.5            | `grok-4.5-results`                | `grok`       |
-| Claude Sonnet 5     | `sonnet-5-results`                | `sonnet`     |
+| Display name        | Folder under `results/`           | Web model id | Judged? |
+|---------------------|-----------------------------------|--------------|---------|
+| Gemini 3.5 Flash    | `gemini-3.5-flash-results`        | `gemini`     | yes     |
+| Grok 4.5            | `grok-4.5-results`                | `grok`       | yes     |
+| Claude Sonnet 5     | `sonnet-5-results`                | `sonnet`     | yes     |
+| Muse Spark 1.1      | `muse-spark-1.1-results`          | `muse`       | yes     |
 
 **Task count fact (do not invent a 27th coding task):**  
 Category 8 has only **8.1** and **8.2** (no 8.3).  
@@ -546,6 +551,8 @@ Write `results/` + mirror `public/data/results/`. Do **not** invent scores in `r
 
 ## 13. What judging looks like later (orchestrator awareness only)
 
+> **Full procedure now lives in §22 (FULL JUDGE CYCLE).** This section is the short awareness note; when the human actually asks you to judge/score/"update everything", follow §22 literally.
+
 Do not run this unless the human explicitly requests judging.
 
 - Mechanical checks: `judging/tools/verify.mjs` (expects root cwd, knows the three current model folder names).  
@@ -674,7 +681,15 @@ Examples of what a human might say:
 - “Follow `agent-bench.md`; model is grok-4.5; high effort; resume if partial.”  
 - “Follow `agent-bench.md` for Claude Sonnet 5; raw outputs only, no scoring.”  
 
-In all cases the agent does Sections 3–11 and 18 without asking for a second copy of the fairness rules.
+For execution requests the agent does Sections 3–11 and 18 without asking for a second copy of the fairness rules.
+
+Judge/scoring requests (raw run already complete) trigger **§22 (FULL JUDGE CYCLE)** instead:
+
+- “Muse just finished — judge it and update everything (web app and all).”  
+- “Follow `agent-bench.md` §22; score `gpt-5.6-results` and refresh the site.”  
+- “Judge the completed run and give me the weighted total.”
+
+In those cases the agent flips to JUDGE identity (§22.0), writes the conflict statement (§22.1), produces evidence + scorecards for all 26 tasks, recomputes the four headline numbers, updates every web surface, mirrors judging artifacts, and gates on a green `npm run build`.
 
 ---
 
@@ -718,9 +733,138 @@ If `task-9.1.md` is 50 KB of fluff, still **do not re-run**—log only. Scoring 
 
 ---
 
-## 22. Final integrity oath (orchestrator)
+## 22. FULL JUDGE CYCLE — how to score a completed raw run and update every surface
 
-I will:
+Sections 0–22 cover **execution** (produce raw `task-*.md`). This section covers **judging**: turning those 26 raw answers into scores, evidence, scorecards, and a fully updated web app. Run this **only** when the human explicitly asks to "judge", "score", or "update everything" for a model whose raw run is already complete (26/26 in `results/<model-folder>/`).
+
+Worked reference: the **Muse Spark 1.1** judge cycle. Follow it literally.
+
+### 22.0 Identity flip (read first)
+
+- During execution you were the ORCHESTRATOR and were forbidden to score.
+- During judging you ARE the JUDGE. You now read `knight-bench-v1.md` rubrics, reference keys, auto-check lists, and the §11 judge prompt — all of it. That is your job now, not contamination.
+- You still never edit the raw `task-*.md` answers. You never re-run the model. You score what is on disk.
+- Contamination rules 1–4 still bind the **model under test** — but that model already ran. They do not bind you.
+
+### 22.1 Conflict-of-interest gate (mandatory, do not skip)
+
+Before scoring, state plainly, in your reply and in the report's conflict statement:
+
+1. Which model family YOU (the judge) belong to.
+2. Whether the model under test may share that family. Check `results/<model-folder>/summary.md` and `run-log.md` anomalies for tells (e.g. the Muse run logged workers writing to `claude-*` folders — a Claude-family tell).
+3. If judge and subject may share a family, or if your scoring puts that model first, write an explicit conflict statement in `report.ts` `conflictStatement` and tell the human the result is provisional until an independent judge re-scores.
+
+Never raise a score on family affinity. Tie every score ≥9 to a mechanical observation made THIS session (a compile, a run, a grep, a word count) — not to prose that "reads strong".
+
+### 22.2 Who judges what (from `knight-bench-v1.md` §11)
+
+| Tasks | How the judge scores them | Status you assign |
+|-------|---------------------------|-------------------|
+| 1.1, 1.3, 3.1, 5.2, 6.1, 6.2, 6.3, 9.2 | Build a scaffold and actually compile/run it (see 23.4). Score on real pass/fail. | `FINAL` |
+| 1.2, 3.2, 3.3, 5.1, 7.1, 7.2, 7.3, 8.1 | Rubric + scripted countables (word/line/grep counts). | `FINAL` |
+| 4.1, 4.2, 4.3 | Design: run auto-checks, save a blind render/source packet under `judging/design-review/`, assign a provisional band. Owner scores blind later. | `PROVISIONAL` |
+| 2.1, 2.2, 2.3, 5.3, 8.2 | Medical: run auto-checks + rubric, but medical accuracy is **owner-final** against collèges/HAS/SPILF. | `PROVISIONAL` |
+| 9.3 | Medical-adjacent budgeted summary — auto-checks final, but mark `PROVISIONAL` (owner medical ratification). | `PROVISIONAL` |
+
+The `FINAL` vs `PROVISIONAL` split above is exactly what the existing three models use and what the web `report.ts` normalization math depends on. Keep it identical model-to-model or the "settled contribution" numbers become non-comparable.
+
+### 22.3 Per-task artifacts you MUST write
+
+For every task ID `T`, create BOTH:
+
+1. `judging/evidence/<model>/<T>-checks.md` — mechanical checklist, one line per auto-check from `knight-bench-v1.md`, each `[PASS]`/`[FAIL]` with the evidence (a quote, a count, or the exit code). Match the format of the existing `judging/evidence/grok/*.md`.
+2. `judging/scorecards/<model>/task-<T>.md` — the judge verdict in the §11 return format:
+
+```
+SCORE: <integer 0-10> (<FINAL|PROVISIONAL>)
+AUTO_CHECKS: <n>/<m>, failures: <list or none>
+BAND_JUSTIFICATION: <3-6 sentences, quote the output, name the band and why not the band above>
+UNVERIFIED_CLAIMS: <list or none>
+RED_FLAGS: <fabrication / instruction violation / none>
+```
+
+`<model>` is the web id (`gemini`, `grok`, `sonnet`, `muse`), NOT the folder name.
+
+### 22.4 Verify-by-building (the part that separates real judging from vibes)
+
+For every code task, do not eyeball it. Build a scaffold under `judging/scratch/<model>/<T>/` and run it. Reuse the existing scaffolds from `judging/scratch/sonnet/<T>/` (they already have working `tsconfig.json` + `global.d.ts` stubs).
+
+- **TypeScript/React tasks (1.1, 1.3, 3.1, 6.1, 6.2, 6.3):** extract the fenced code blocks (a `// file: <path>` first line tells you the path), drop in the stub `global.d.ts` + `tsconfig.json`, run `npx -y tsc --noEmit -p tsconfig.json`, record the exit code. If an error is a **stub gap** (the stub under-declares a real library type — e.g. hls.js class-vs-value, `useSearchParams` missing), fix the STUB, not the model's code, and note that in the evidence file. A genuine type error in the model's code is a real failure.
+- **Python tasks (5.2):** extract the module, write a tiny smoke driver that exercises the claimed behaviour, run with `py` (Windows) / `python3`. Record what passed. If the model asserted "N tests OK" but shipped only test *signatures* with elided bodies, that is a `FAIL` on the "runnable tests" auto-check even if the module itself runs.
+- **JS behaviour tasks (9.2):** write an assertion harness (basic debounce, flush-with-pending, flush-nothing no-op, cancel-then-call, `this`/args preserved), run with `node`, record pass/fail per assertion.
+- **Constraint-counting tasks (8.1):** write a script (`judging/scratch/<model>/check81.mjs`) that counts every countable constraint (word count, paragraph count, exact-occurrence greps, punctuation counts, `ing` count, z-words, final word, forbidden words, the #29 single-question-mark trap). Never eyeball 50 constraints.
+- **Design tasks (4.x):** grep the mechanical checks (logical-vs-physical CSS props, emoji, line count, offline/no-http, hex-in-tokens, forbidden-list length, `dir="rtl"`), and save a blind packet to `judging/design-review/` (render the HTML to `<LETTER>-<T>.html`; for React components wrap the source in a `<pre>` packet). Assign a provisional band from the code; the owner scores the render blind.
+
+Clean up nothing the human needs, but `__pycache__/` and scratch build dirs stay under `judging/scratch/` — never leak them into `results/`.
+
+### 22.5 Compute the four headline numbers (formulas, verified against Grok)
+
+Task weight = `category_weight / tasks_in_category` (cat 8 has 2 tasks, all others 3). Then:
+
+- **`weightedTotal`** = Σ over all 26 tasks of `score × task_weight`. (Equivalently Σ `category_mean × category_weight`.) Provisional scores ARE included here.
+- **`settledContribution`** = Σ over **FINAL tasks only** of `score × task_weight`. Provisional tasks contribute 0.
+- **`provisionalIfZero`** = same as `settledContribution` (provisional → 0).
+- **`provisionalIfTen`** = `settledContribution` + Σ over **PROVISIONAL tasks** of `10 × task_weight`.
+- **`finalOnlyNormalized`** = `settledContribution / (sum of task_weights of FINAL tasks)` — i.e. renormalize the settled score to a full-weight 0–10.
+
+Sanity check your formula against an existing model before trusting it: Grok = `weightedTotal 7.767`, `settled 4.792`, `provisionalIfTen 8.917`, `finalOnly 8.156`. If your recomputation of Grok from `report.ts` does not reproduce those, your formula is wrong — fix it before writing the new model's numbers.
+
+Category mean = mean of that category's task scores, 2 decimals (e.g. `(9+8+6)/3 = 7.67`).
+
+Worked Muse result: cat means `7.67 / 9.00 / 9.00 / 7.67 / 7.67 / 8.00 / 9.00 / 9.00 / 9.00`, giving `weightedTotal 8.283`, `settled 4.758`, `provisionalIfZero 4.758`, `provisionalIfTen 8.967`, `finalOnly 8.216`.
+
+### 22.6 Update the web app (every surface — this is the "update everything" the human means)
+
+The site is a Vite + React + TS app. All scored data is typed, so a missed edit fails `tsc`, not silently. Touch these files:
+
+1. **`web-app/src/data/types.ts`** — if `ModelId` is a closed union, add the new id. Add the model's field to `MasterScoreRow` and `CategoryScoreRow` (e.g. `muse: TaskScore;` / `muse: number;`). If `Category.winner` / verdict types are narrowed to a judged-only union, widen them to `ModelId` so a new model can win.
+2. **`web-app/src/data/models.ts`** — add the `ModelInfo` entry with the five real numbers from 23.5 and `judged: true`. Keep any `judged`/`judgedModels` helper honest.
+3. **`web-app/src/data/modelVisuals.ts`** — add the model to `modelColorVar`, `modelShortName`, and `modelOrder` (append; order drives table/column order).
+4. **`web-app/src/index.css`** — add a `--series-<id>` colour in BOTH the light `:root` block and the `@media (prefers-color-scheme: dark)` block. Pick a hue distinct from the existing series (CVD-safe).
+5. **`web-app/src/data/report.ts`** — add the model's cell to all 26 `masterScoreTable` rows and all 9 `categoryScoreTable` rows. Recompute `executiveVerdict` (`winner`, `summary`, per-category `categoryWinners`, `personalityRead`) if the new scores change the ranking. Add a row to `provisionalSwing`. Update `conflictStatement` (23.1) and `scopeNote` output counts (now `4 models … 104 model-task outputs`). Optionally add a deep-dive/personality line for the new model.
+6. **`web-app/src/data/categories.ts`** — update each `Category.winner` that the new model now tops (compare the new column against the others in `categoryScoreTable`; highest mean wins, exact ties broken by the higher raw scores).
+7. **Pages with hardcoded model counts or column counts** — grep for the old count. Known spots: `pages/Overview.tsx` (hero line "N models judged, M outputs scored"; the per-model grid `grid-cols`; "Category scores, all N models"), `pages/Models.tsx` (section title + spec note), and `pages/Report.tsx` (the weighted-total / final-only footer rows — drive them from `modelOrder.map(modelById)` instead of three literal `<td>`s so they never go stale again).
+8. **Mirror judging artifacts** so the deployed site can fetch them:
+
+```powershell
+$m = "muse"                                   # web id
+$src = "judging"; $dst = "web-app\public\data\judging"
+New-Item -ItemType Directory -Force "$dst\scorecards\$m","$dst\evidence\$m" | Out-Null
+Copy-Item "$src\scorecards\$m\*"   "$dst\scorecards\$m\" -Force
+Copy-Item "$src\evidence\$m\*"     "$dst\evidence\$m\"   -Force
+Copy-Item "$src\design-review\*"   "$dst\design-review\" -Force -ErrorAction SilentlyContinue
+```
+
+Also re-run the §11.1 results mirror if any raw file changed. The `TaskDetail` page fetches `/data/judging/scorecards/<model>/task-<id>.md` and `/data/judging/evidence/<model>/<id>-checks.md` live, so these MUST be mirrored or the evidence tabs 404.
+
+### 22.7 Gate: build must be green
+
+From `web-app/`, run `npm run build` (`tsc -b && vite build`). It must exit 0. A red build means a row is missing the new model's cell, a union wasn't widened, or a hardcoded column count is stale. Fix and rebuild until green. Do not report done on a red build.
+
+### 22.8 Judge output to the human
+
+Report: the model's `weightedTotal` and where it ranks, the per-category winners that changed, the FINAL vs PROVISIONAL split (and which categories are owner-pending), the conflict statement from 23.1, the contamination-audit result for the original raw run, and confirmation that `npm run build` is green. State plainly if the new model is now first and that its provisional (medical/design) scores are not yet owner-ratified.
+
+### 22.9 Judge checklist
+
+- [ ] Identity flip acknowledged; conflict statement written
+- [ ] Every task has BOTH an evidence file and a scorecard
+- [ ] Every code task was actually compiled/run; stub-gap vs real-error distinguished in evidence
+- [ ] 8.1 counted by script; 9.2 run by harness; 5.2 module executed
+- [ ] FINAL/PROVISIONAL split matches the other models' split
+- [ ] Four headline numbers recomputed; formula re-verified against an existing model
+- [ ] `types.ts` / `models.ts` / `modelVisuals.ts` / `index.css` / `report.ts` / `categories.ts` all updated
+- [ ] Hardcoded model/column counts in Overview / Models / Report fixed
+- [ ] `judging/scorecards|evidence|design-review` mirrored into `web-app/public/data/judging/`
+- [ ] Raw results still mirrored (§11)
+- [ ] `npm run build` green
+- [ ] Human told the result, the conflict, and what stays provisional
+
+---
+
+## 23. Final integrity oath (orchestrator + judge)
+
+As ORCHESTRATOR (execution) I will:
 
 1. Keep the model under test blind to rubrics and keys.  
 2. Paste only the Prompt (copy-paste) fence.  
@@ -731,6 +875,16 @@ I will:
 7. Never lie about contamination.
 
 If I cannot pin the model, I will ask. If I contaminate a task, I will say so.
+
+As JUDGE (§22, scoring) I will:
+
+1. Never edit a raw `task-*.md` or re-run the model.  
+2. Tie every score ≥9 to a mechanical observation I made this session (compile / run / grep / count), never to family affinity or prose that "reads strong".  
+3. Actually build and run every code task; distinguish a stub-gap from a real error.  
+4. Keep the FINAL/PROVISIONAL split identical to the other models so the normalization math stays comparable.  
+5. Write the conflict-of-interest statement plainly, and mark the result provisional if I share the subject's family or if my scoring puts it first.  
+6. Verify my headline-number formula against an existing model before trusting it.  
+7. Update every web surface and gate on a green build; never report done on a red build.
 
 ---
 

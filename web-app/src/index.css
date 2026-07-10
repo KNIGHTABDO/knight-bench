@@ -102,6 +102,7 @@
   --series-grok: #eb6834;
   --series-sonnet: #4a3aa7;
   --series-muse: #1f8a70;
+  --series-gpt55: #b02a58;
   --chart-surface: #fcfcfb;
   --chart-grid: #e1e0d9;
   --chart-axis: #c3c2b7;
@@ -165,6 +166,7 @@
     --series-grok: #d95926;
     --series-sonnet: #9085e9;
     --series-muse: #35b294;
+    --series-gpt55: #e06591;
     --chart-surface: #1a1a19;
     --chart-grid: #2c2c2a;
     --chart-axis: #383835;

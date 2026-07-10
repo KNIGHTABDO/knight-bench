@@ -1,0 +1,1 @@
+Sous apixaban ou rivaroxaban, si la clairance de la creatinine est de 30 a 60 mL/min, reevaluer la fonction renale tous les six mois. Sous 30 mL/min, discuter la poursuite avec avis specialise. Surdosage asymptomatique : suspendre et controler la fonction renale ; hemorragie grave : agent de reversion specifique ou concentré de complexe prothrombinique selon disponibilite.

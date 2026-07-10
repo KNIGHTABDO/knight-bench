@@ -30,6 +30,12 @@ All verdicts here are provisional. Owner must verify against current HAS/SPILF/c
 | 8.2 | Gemini 3.5 Flash | S6 nuance | not discussed | Credit top band only for <25 slice nuance | incomplete nuance | [ ] |
 | 8.2 | Grok 4.5 | S6 nuance | « Pour la tranche 25–30 mL/min, cela reste compatible avec la section 5 (AOD non interdits). Pour la tranche <25 mL/min, la section 6 présuppose l’existence de patients sous AOD, alors que la section 5 l’interdit (sauf validation écrite exceptionnelle du chef de service). » | Correct partial contradiction/incoherence-by-implication | correct | [ ] |
 | 8.2 | Claude Sonnet 5 | S6 nuance | « Par exemple, la Section 6 (surveillance de la fonction rénale « tous les 3 mois en dessous de 30 mL/min chez les patients sous AOD ») reste compatible avec la Section 5, car la tranche 25-30 mL/min autorise toujours un AOD ; ce n'est donc pas retenu comme incohérence. » | Should analyze <25 slice too | incomplete nuance | [ ] |
+| 2.1 | GPT-5.5 | Oxygen and reperfusion thresholds | « oxygene uniquement si SpO2 < 90 % » and « angioplastie primaire si elle peut etre realisee dans les 120 minutes » | O2 only if SpO2 <90%; primary PCI within 120 min | consistent; owner verify full medication list | [ ] |
+| 2.2 | GPT-5.5 | Cockcroft and anticoagulant choice | « Clairance ... = 29,8 mL/min » then HNF with TCA/anti-Xa and platelets | Expected 29.8 mL/min; avoid curative LMWH below 30 | clinically aligned; intermediate displayed units are invalid | [ ] |
+| 2.3 | GPT-5.5 | First-line antibiotic | « fosfomycine-trometamol, 3 g per os en prise unique » | Fosfomycin-trometamol 3 g single dose | consistent; owner verify current guidance | [ ] |
+| 5.3 | GPT-5.5 | True-but-unsourced dose and other unsupported claims | « aucun dosage precis n'est fourni dans les chunks »; ivabradine, antipneumococcal vaccination, and fluid restriction are all NON SOUTENU | Support, not plausibility, is the test | consistent; clinical aside needs owner review | [ ] |
+| 8.2 | GPT-5.5 | S6 nuance | Not discussed; answer finds the two hard conflicts and repeats the duration issue | Credit top band only for 25-30 versus <25 reasoning | incomplete nuance | [ ] |
+| 9.3 | GPT-5.5 | Anticoagulant summary | « 30 a 60 mL/min ... tous les six mois » and both overdose branches | Preserve threshold, both drugs, overdose action, monitoring | all critical facts retained; owner verify wording | [ ] |
 
 ## Numbers / Doses / Thresholds To Verify
 
